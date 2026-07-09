@@ -86,13 +86,13 @@ export const Header: React.FC = () => {
             <img 
               src="/logo.png" 
               alt="Aniruddaya Enterprises" 
-              className={`rounded-xl object-cover shadow border transition-all duration-500 ${isScrolled ? 'w-8 h-8 border-slate-100' : 'w-12 h-12 border-white/20'}`} 
+              className={`rounded-xl object-cover shadow border transition-all duration-500 ${isScrolled ? 'w-12 h-12 md:w-14 md:h-14 border-slate-100' : 'w-20 h-20 md:w-24 md:h-24 border-white/20'}`} 
             />
             <div className="flex flex-col">
-              <span className={`font-display font-extrabold text-base md:text-lg leading-tight uppercase tracking-wider transition-colors duration-500 ${isScrolled ? 'text-brand-primary' : 'text-brand-primary drop-shadow-md'}`}>
+              <span className={`font-display font-extrabold text-base md:text-xl leading-tight uppercase tracking-wider transition-colors duration-500 ${isScrolled ? 'text-brand-primary' : 'text-brand-primary drop-shadow-md'}`}>
                 Aniruddaya Enterprises
               </span>
-              <span className={`text-[9px] uppercase tracking-widest font-bold font-sans transition-colors duration-500 ${isScrolled ? 'text-slate-500' : 'text-brand-accent/90'}`}>
+              <span className={`text-[10px] md:text-xs uppercase tracking-widest font-bold font-sans transition-colors duration-500 ${isScrolled ? 'text-slate-500' : 'text-brand-accent/90'}`}>
                 Pigeon Nets & Invisible Grills
               </span>
             </div>
