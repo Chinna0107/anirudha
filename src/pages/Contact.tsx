@@ -1,7 +1,11 @@
 import React from 'react';
 import { QuoteForm } from '../components/ui/QuoteForm';
 import { Phone, Clock, MapPin, ShieldAlert, Mail } from 'lucide-react';
+// import { useSEO } from '../hooks/useSEO';
 import { useSEO } from '../hooks/useSEO';
+import { motion } from 'framer-motion';
+import { TextReveal } from '../components/ui/TextReveal';
+import { MagneticButton } from '../components/ui/MagneticButton';
 
 const InstagramIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
@@ -33,34 +37,51 @@ export const Contact: React.FC = () => {
       {/* Header Banner */}
       <section className="bg-slate-900 text-white py-16 px-6 text-center relative">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(142,152,165,0.06),transparent_70%)]"></div>
-        <div className="max-w-4xl mx-auto flex flex-col gap-3 relative z-10">
+        <div className="max-w-4xl mx-auto flex flex-col gap-3 relative z-10 text-center">
           <span className="text-xs uppercase tracking-widest text-brand-accent font-extrabold font-display">Schedule Free Inspection</span>
-          <h1 className="font-display font-extrabold text-3xl sm:text-5xl text-white tracking-tight leading-tight">
-            Connect With Rigging Experts
-          </h1>
-          <p className="font-sans text-slate-300 text-sm sm:text-base max-w-md mx-auto">
+          <TextReveal 
+            text="Connect With Rigging Experts" 
+            className="font-display font-extrabold text-3xl sm:text-5xl text-white tracking-tight leading-tight justify-center" 
+          />
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="font-sans text-slate-300 text-sm sm:text-base max-w-md mx-auto"
+          >
             Book a free physical measurement audit, view high-quality material samples, and receive a customized quotation today.
-          </p>
+          </motion.p>
         </div>
       </section>
 
       {/* Main Split Grid */}
       <section className="py-20 px-6 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12">
         {/* Contact info details left */}
-        <div className="lg:col-span-5 flex flex-col gap-8 justify-start">
-          <div className="flex flex-col gap-3">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+          }}
+          className="lg:col-span-5 flex flex-col gap-8 justify-start"
+        >
+          <motion.div variants={{ hidden: { opacity: 0, x: -50 }, visible: { opacity: 1, x: 0, transition: { type: 'spring' } } }} className="flex flex-col gap-3">
             <span className="text-xs uppercase tracking-widest text-slate-500 font-extrabold font-display">Immediate Support</span>
             <h2 className="font-display font-black text-2xl md:text-3xl text-brand-primary">Our Operation Details</h2>
             <p className="text-slate-500 font-sans text-sm leading-relaxed">
               We operate localized high-rise technician networks across Bangalore and Mysore, enabling same-day physical inspections and sample demonstrations.
             </p>
-          </div>
+          </motion.div>
 
           <div className="flex flex-col gap-5">
-            <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 shadow-sm flex items-center justify-center text-brand-primary shrink-0">
-                <Phone className="w-5 h-5 text-brand-primary" />
-              </div>
+            <motion.div variants={{ hidden: { opacity: 0, x: -50 }, visible: { opacity: 1, x: 0, transition: { type: 'spring' } } }} className="flex items-start gap-4 group">
+              <MagneticButton className="shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 shadow-sm flex items-center justify-center text-brand-primary group-hover:bg-brand-primary group-hover:text-slate-900 transition-colors">
+                  <Phone className="w-5 h-5" />
+                </div>
+              </MagneticButton>
               <div className="flex flex-col">
                 <span className="text-xs text-slate-500 font-display font-bold uppercase tracking-wider">Direct Hotline</span>
                 <a href="tel:9550779976" className="text-base font-bold text-brand-primary hover:underline font-display">
@@ -68,12 +89,14 @@ export const Contact: React.FC = () => {
                 </a>
                 <span className="text-[10px] text-slate-500 font-sans">Free consulting and sample displays</span>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 shadow-sm flex items-center justify-center text-brand-primary shrink-0">
-                <Mail className="w-5 h-5 text-brand-primary" />
-              </div>
+            <motion.div variants={{ hidden: { opacity: 0, x: -50 }, visible: { opacity: 1, x: 0, transition: { type: 'spring' } } }} className="flex items-start gap-4 group">
+              <MagneticButton className="shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 shadow-sm flex items-center justify-center text-brand-primary group-hover:bg-brand-primary group-hover:text-slate-900 transition-colors">
+                  <Mail className="w-5 h-5" />
+                </div>
+              </MagneticButton>
               <div className="flex flex-col">
                 <span className="text-xs text-slate-500 font-display font-bold uppercase tracking-wider">Email Inquiry</span>
                 <a href="mailto:Aniruddayasafetynets@gmail.com" className="text-base font-bold text-brand-primary hover:underline font-display break-all">
@@ -81,12 +104,14 @@ export const Contact: React.FC = () => {
                 </a>
                 <span className="text-[10px] text-slate-500 font-sans">Replies within 2 business hours</span>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 shadow-sm flex items-center justify-center text-brand-primary shrink-0">
-                <InstagramIcon className="w-5 h-5 text-brand-primary" />
-              </div>
+            <motion.div variants={{ hidden: { opacity: 0, x: -50 }, visible: { opacity: 1, x: 0, transition: { type: 'spring' } } }} className="flex items-start gap-4 group">
+              <MagneticButton className="shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 shadow-sm flex items-center justify-center text-brand-primary group-hover:bg-brand-primary group-hover:text-slate-900 transition-colors">
+                  <InstagramIcon className="w-5 h-5" />
+                </div>
+              </MagneticButton>
               <div className="flex flex-col">
                 <span className="text-xs text-slate-500 font-display font-bold uppercase tracking-wider">Follow Instagram</span>
                 <a 
@@ -98,9 +123,9 @@ export const Contact: React.FC = () => {
                   @aniruddaya_enterprises
                 </a>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="flex items-start gap-4">
+            <motion.div variants={{ hidden: { opacity: 0, x: -50 }, visible: { opacity: 1, x: 0, transition: { type: 'spring' } } }} className="flex items-start gap-4">
               <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 shadow-sm flex items-center justify-center text-brand-primary shrink-0">
                 <Clock className="w-5 h-5 text-brand-primary" />
               </div>
@@ -111,9 +136,9 @@ export const Contact: React.FC = () => {
                 </span>
                 <span className="text-xs text-slate-500 font-sans">Rigging Work: Mon-Sun (9:00 AM - 8:00 PM)</span>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="flex items-start gap-4">
+            <motion.div variants={{ hidden: { opacity: 0, x: -50 }, visible: { opacity: 1, x: 0, transition: { type: 'spring' } } }} className="flex items-start gap-4">
               <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 shadow-sm flex items-center justify-center text-brand-primary shrink-0">
                 <MapPin className="w-5 h-5 text-brand-primary" />
               </div>
@@ -124,21 +149,27 @@ export const Contact: React.FC = () => {
                 </span>
                 <span className="text-xs text-slate-500 font-sans">Vidyaranyapura, Bengaluru, Karnataka 560097</span>
               </div>
-            </div>
+            </motion.div>
           </div>
 
-          <div className="bg-slate-100/50 border border-slate-200/50 rounded-3xl p-5 flex items-start gap-3 mt-4">
+          <motion.div variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { type: 'spring' } } }} className="bg-slate-100/50 border border-slate-200/50 rounded-3xl p-5 flex items-start gap-3 mt-4">
             <ShieldAlert className="w-5 h-5 text-brand-primary shrink-0 mt-0.5 animate-mover" />
             <p className="text-xs text-slate-600 font-sans leading-relaxed">
               <strong>Need emergency fitments?</strong> In case of urgent window fall safety issues or active pigeon cleanings, call our hotline directly to trigger same-day priority dispatch.
             </p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Quote Form Estimator Right */}
-        <div className="lg:col-span-7 w-full">
+        <motion.div 
+          initial={{ opacity: 0, x: 100 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6, type: 'spring', delay: 0.2 }}
+          className="lg:col-span-7 w-full"
+        >
           <QuoteForm />
-        </div>
+        </motion.div>
       </section>
     </div>
   );

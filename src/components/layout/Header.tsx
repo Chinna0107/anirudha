@@ -74,21 +74,25 @@ export const Header: React.FC = () => {
 
       {/* Sticky Main Header */}
       <header
-        className={`sticky top-0 z-30 w-full transition-all duration-300 ${
+        className={`sticky top-0 z-40 w-full transition-all duration-500 ${
           isScrolled 
-            ? 'glass-nav py-3 shadow-md' 
-            : 'bg-white py-4 border-b border-slate-100'
+            ? 'bg-white/95 backdrop-blur-md py-2 shadow-lg border-b border-slate-200' 
+            : 'bg-transparent py-5 border-b border-white/10'
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2.5">
-            <img src="/logo.png" alt="Aniruddaya Enterprises" className="w-10 h-10 rounded-xl object-cover shadow border border-slate-100" />
+          <Link to="/" className="flex items-center gap-2.5 group">
+            <img 
+              src="/logo.png" 
+              alt="Aniruddaya Enterprises" 
+              className={`rounded-xl object-cover shadow border transition-all duration-500 ${isScrolled ? 'w-8 h-8 border-slate-100' : 'w-12 h-12 border-white/20'}`} 
+            />
             <div className="flex flex-col">
-              <span className="font-display font-extrabold text-brand-primary text-base md:text-lg leading-tight uppercase tracking-wider">
+              <span className={`font-display font-extrabold text-base md:text-lg leading-tight uppercase tracking-wider transition-colors duration-500 ${isScrolled ? 'text-brand-primary' : 'text-brand-primary drop-shadow-md'}`}>
                 Aniruddaya Enterprises
               </span>
-              <span className="text-[9px] uppercase tracking-widest text-slate-500 font-bold font-sans">
+              <span className={`text-[9px] uppercase tracking-widest font-bold font-sans transition-colors duration-500 ${isScrolled ? 'text-slate-500' : 'text-brand-accent/90'}`}>
                 Pigeon Nets & Invisible Grills
               </span>
             </div>
@@ -100,13 +104,14 @@ export const Header: React.FC = () => {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`font-display text-sm font-semibold tracking-wide hover:text-brand-accent transition-colors duration-200 ${
+                className={`font-display text-sm font-semibold tracking-wide hover:text-brand-accent transition-colors duration-200 relative group ${
                   location.pathname === link.path 
                     ? 'text-brand-accent' 
-                    : 'text-slate-600'
+                    : (isScrolled ? 'text-slate-700' : 'text-slate-800 drop-shadow-sm')
                 }`}
               >
                 {link.name}
+                <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-accent transition-all duration-300 group-hover:w-full ${location.pathname === link.path ? 'w-full' : ''}`}></span>
               </Link>
             ))}
           </nav>
@@ -115,9 +120,9 @@ export const Header: React.FC = () => {
           <div className="hidden lg:flex items-center gap-4">
             <a 
               href="tel:9550779976" 
-              className="flex items-center gap-2 text-sm font-display font-bold text-slate-700 hover:text-brand-accent transition-colors"
+              className={`flex items-center gap-2 text-sm font-display font-bold transition-colors ${isScrolled ? 'text-slate-700 hover:text-brand-accent' : 'text-slate-800 hover:text-brand-accent'}`}
             >
-              <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600">
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${isScrolled ? 'bg-slate-100 text-slate-600' : 'bg-white/20 text-slate-800 backdrop-blur-sm'}`}>
                 <Phone className="w-4 h-4" />
               </div>
               +91 95507 79976

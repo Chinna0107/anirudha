@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, PhoneCall } from 'lucide-react';
 import { servicesData } from '../data/servicesData';
 import { useSEO } from '../hooks/useSEO';
+import { motion } from 'framer-motion';
+import { TextReveal } from '../components/ui/TextReveal';
+import { MagneticButton } from '../components/ui/MagneticButton';
+import Tilt from 'react-parallax-tilt';
 
 export const Services: React.FC = () => {
   useSEO({
@@ -31,14 +35,20 @@ export const Services: React.FC = () => {
       {/* 1. Header */}
       <section className="bg-slate-900 text-white py-16 px-6 text-center relative">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(245,158,11,0.06),transparent_70%)]"></div>
-        <div className="max-w-4xl mx-auto flex flex-col gap-3 relative z-10">
+        <div className="max-w-4xl mx-auto flex flex-col gap-3 relative z-10 text-center">
           <span className="text-xs uppercase tracking-widest text-brand-accent font-extrabold font-display">Our Professional Services Portfolio</span>
-          <h1 className="font-display font-extrabold text-3xl sm:text-5xl text-white tracking-tight leading-tight">
-            Our Services Showcase
-          </h1>
-          <p className="font-sans text-slate-600 text-sm sm:text-base max-w-lg mx-auto leading-relaxed">
+          <TextReveal 
+            text="Our Services Showcase" 
+            className="font-display font-extrabold text-3xl sm:text-5xl text-white tracking-tight leading-tight justify-center" 
+          />
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="font-sans text-slate-600 text-sm sm:text-base max-w-lg mx-auto leading-relaxed"
+          >
             Explore our professional selection of premium residential safety netting and invisible grill installations.
-          </p>
+          </motion.p>
         </div>
       </section>
 
@@ -75,47 +85,67 @@ export const Services: React.FC = () => {
           </div>
 
           {/* Grid Layout */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <motion.div 
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: { opacity: 0 },
+              visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+            }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
             {filteredItems.map(item => (
-              <div 
+              <motion.div 
                 key={item.id}
-                className="bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm flex flex-col transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+                variants={{
+                  hidden: { opacity: 0, y: 40, scale: 0.95 },
+                  visible: { opacity: 1, y: 0, scale: 1, transition: { type: 'spring', stiffness: 100 } }
+                }}
+                className="h-full"
               >
-                <div className="relative h-60 w-full overflow-hidden bg-slate-100">
-                  <img 
-                    src={item.img} 
-                    alt={item.title} 
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                    loading="lazy"
-                  />
-                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-xs px-3 py-1 rounded-full text-[10px] font-display font-bold text-brand-primary shadow uppercase tracking-wider max-w-[85%] truncate">
-                    {item.categoryLabel}
+                <Tilt tiltMaxAngleX={8} tiltMaxAngleY={8} glareEnable={true} glareMaxOpacity={0.15} glarePosition="all" transitionSpeed={1000} className="h-full">
+                  <div className="bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm flex flex-col h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                    <div className="relative h-60 w-full overflow-hidden bg-slate-100">
+                      <img 
+                        src={item.img} 
+                        alt={item.title} 
+                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                        loading="lazy"
+                      />
+                      <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-xs px-3 py-1 rounded-full text-[10px] font-display font-bold text-brand-primary shadow uppercase tracking-wider max-w-[85%] truncate">
+                        {item.categoryLabel}
+                      </div>
+                    </div>
+                    <div className="p-6 flex flex-col gap-3 flex-1">
+                      <h3 className="font-display font-bold text-lg text-brand-primary leading-tight">{item.title}</h3>
+                      <p className="text-xs text-slate-500 font-sans leading-relaxed line-clamp-2">{item.desc}</p>
+                      
+                      <div className="mt-auto flex flex-col xs:flex-row gap-2 pt-2">
+                        <MagneticButton>
+                          <Link 
+                            to={`/services/${item.slug}`} 
+                            className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-4 bg-slate-50 text-brand-primary hover:bg-brand-primary hover:text-white font-display font-bold text-xs rounded-xl transition-all border border-slate-100"
+                          >
+                            <span>Specifications</span>
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </Link>
+                        </MagneticButton>
+                        <MagneticButton>
+                          <a 
+                            href="tel:9550779976"
+                            className="inline-flex items-center justify-center gap-1.5 py-2.5 px-4 bg-brand-primary text-slate-900 hover:bg-slate-800 font-display font-bold text-xs rounded-xl transition-all shadow-sm"
+                          >
+                            <PhoneCall className="w-3.5 h-3.5" />
+                            <span>Call Now</span>
+                          </a>
+                        </MagneticButton>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div className="p-6 flex flex-col gap-3 flex-1">
-                  <h3 className="font-display font-bold text-lg text-brand-primary leading-tight">{item.title}</h3>
-                  <p className="text-xs text-slate-500 font-sans leading-relaxed line-clamp-2">{item.desc}</p>
-                  
-                  <div className="mt-auto flex flex-col xs:flex-row gap-2 pt-2">
-                    <Link 
-                      to={`/services/${item.slug}`} 
-                      className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-4 bg-slate-50 text-brand-primary hover:bg-brand-primary hover:text-white font-display font-bold text-xs rounded-xl transition-all border border-slate-100"
-                    >
-                      <span>Specifications</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
-                    <a 
-                      href="tel:9550779976"
-                      className="inline-flex items-center justify-center gap-1.5 py-2.5 px-4 bg-brand-primary text-slate-900 hover:bg-slate-800 font-display font-bold text-xs rounded-xl transition-all shadow-sm"
-                    >
-                      <PhoneCall className="w-3.5 h-3.5" />
-                      <span>Call Now</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
+                </Tilt>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
         </div>
       </section>

@@ -42,12 +42,13 @@ export const FloatingCTA: React.FC = () => {
         {/* WhatsApp Chat */}
         <a 
           href="https://api.whatsapp.com/send?phone=+919550779976&text=Hello Aniruddaya Enterprises, I would like to get a quote and details for Safety Nets / Invisible Grills." 
-          className="flex items-center gap-2 text-slate-800 hover:text-green-400 transition-colors duration-200"
+          className="flex items-center gap-2 text-slate-800 hover:text-green-500 transition-colors duration-200 group relative"
           target="_blank"
           rel="noopener noreferrer"
           title="WhatsApp Chat"
         >
-          <div className="w-8 h-8 rounded-full bg-green-500/25 text-green-400 flex items-center justify-center shrink-0 border border-green-500/20 animate-pulse">
+          <div className="absolute inset-0 bg-green-500/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div className="w-8 h-8 rounded-full bg-green-500/25 text-green-500 flex items-center justify-center shrink-0 border border-green-500/30 animate-[glowPulse_2s_infinite_ease-in-out] relative z-10">
             <MessageSquare className="w-4 h-4" />
           </div>
           <span className="font-display font-bold text-xs tracking-wide uppercase whitespace-nowrap">WhatsApp</span>

@@ -3,6 +3,9 @@ import { AccordionItem } from '../components/ui/Accordion';
 import { Search, HelpCircle, PhoneCall } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { useSEO } from '../hooks/useSEO';
+import { motion, AnimatePresence } from 'framer-motion';
+import { TextReveal } from '../components/ui/TextReveal';
+import { MagneticButton } from '../components/ui/MagneticButton';
 
 export const Faq: React.FC = () => {
   useSEO({
@@ -63,14 +66,20 @@ export const Faq: React.FC = () => {
       {/* 1. Header Banner */}
       <section className="bg-slate-900 text-white py-16 px-6 text-center relative">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(142,152,165,0.06),transparent_70%)]"></div>
-        <div className="max-w-4xl mx-auto flex flex-col gap-3 relative z-10">
+        <div className="max-w-4xl mx-auto flex flex-col gap-3 relative z-10 text-center">
           <span className="text-xs uppercase tracking-widest text-brand-accent font-extrabold font-display">Got Questions?</span>
-          <h1 className="font-display font-extrabold text-3xl sm:text-5xl text-white tracking-tight leading-tight">
-            Safety FAQs Directory
-          </h1>
-          <p className="font-sans text-slate-300 text-sm sm:text-base max-w-md mx-auto">
+          <TextReveal 
+            text="Safety FAQs Directory" 
+            className="font-display font-extrabold text-3xl sm:text-5xl text-white tracking-tight leading-tight justify-center" 
+          />
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="font-sans text-slate-300 text-sm sm:text-base max-w-md mx-auto"
+          >
             Find transparent answers regarding materials, scheduling, warranty, and structural rigging procedures.
-          </p>
+          </motion.p>
         </div>
       </section>
 
@@ -121,35 +130,66 @@ export const Faq: React.FC = () => {
           </div>
 
           {/* Collapsible List */}
-          <div className="flex flex-col gap-4">
-            {filteredFaqs.length > 0 ? (
-              filteredFaqs.map((faq, index) => (
-                <AccordionItem key={index} question={faq.question} answer={faq.answer} />
-              ))
-            ) : (
-              <div className="text-center py-12 bg-white rounded-3xl border border-slate-100 shadow-sm flex flex-col items-center">
-                <HelpCircle className="w-10 h-10 text-slate-600 mb-3" />
-                <span className="font-display font-bold text-slate-700 text-lg mb-1">No matches found</span>
-                <span className="text-xs text-slate-500 font-sans">Try searching with other safety terms.</span>
-              </div>
-            )}
-          </div>
+          <motion.div 
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: { opacity: 0 },
+              visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+            }}
+            className="flex flex-col gap-4"
+          >
+            <AnimatePresence>
+              {filteredFaqs.length > 0 ? (
+                filteredFaqs.map((faq, index) => (
+                  <motion.div 
+                    key={index}
+                    layout
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ type: 'spring', stiffness: 100 }}
+                  >
+                    <AccordionItem question={faq.question} answer={faq.answer} />
+                  </motion.div>
+                ))
+              ) : (
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="text-center py-12 bg-white rounded-3xl border border-slate-100 shadow-sm flex flex-col items-center"
+                >
+                  <HelpCircle className="w-10 h-10 text-slate-600 mb-3" />
+                  <span className="font-display font-bold text-slate-700 text-lg mb-1">No matches found</span>
+                  <span className="text-xs text-slate-500 font-sans">Try searching with other safety terms.</span>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
 
           {/* Quick Support Card */}
-          <div className="bg-slate-900 text-white rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-lg shadow-slate-900/10 mt-6">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, type: 'spring' }}
+            className="bg-slate-900 text-white rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-lg shadow-slate-900/10 mt-6"
+          >
             <div className="flex flex-col gap-2">
               <h3 className="font-display font-bold text-xl">Still have custom questions?</h3>
               <p className="text-xs text-slate-300 font-sans max-w-sm">
                 Connect with our local customer relations lead for immediate support or customized building estimates.
               </p>
             </div>
-            <a href="tel:9550779976">
-              <Button variant="whatsapp" className="whitespace-nowrap">
-                <PhoneCall className="w-4 h-4 mr-2" />
-                Call +91 95507 79976
-              </Button>
-            </a>
-          </div>
+            <MagneticButton>
+              <a href="tel:9550779976" className="block">
+                <Button variant="whatsapp" className="whitespace-nowrap w-full sm:w-auto">
+                  <PhoneCall className="w-4 h-4 mr-2" />
+                  Call +91 95507 79976
+                </Button>
+              </a>
+            </MagneticButton>
+          </motion.div>
 
         </div>
       </section>

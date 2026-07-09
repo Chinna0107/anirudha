@@ -5,6 +5,10 @@ import { Button } from '../components/ui/Button';
 import { Accordion } from '../components/ui/Accordion';
 import { CheckCircle2, PhoneCall, HelpCircle, FileText, ChevronRight } from 'lucide-react';
 import { useSEO } from '../hooks/useSEO';
+import { motion } from 'framer-motion';
+import { TextReveal } from '../components/ui/TextReveal';
+import { MagneticButton } from '../components/ui/MagneticButton';
+import Tilt from 'react-parallax-tilt';
 
 export const ServiceDetail: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -62,12 +66,18 @@ export const ServiceDetail: React.FC = () => {
           <span className="bg-slate-100 border border-white/10 px-3.5 py-1 rounded-full text-[10px] font-display font-extrabold text-brand-accent uppercase tracking-widest">
             {service.categoryLabel}
           </span>
-          <h1 className="font-display font-extrabold text-3xl sm:text-5xl text-white tracking-tight leading-tight">
-            Premium {service.title} Installation
-          </h1>
-          <p className="font-sans text-slate-600 text-base leading-relaxed max-w-2xl">
+          <TextReveal 
+            text={`Premium ${service.title} Installation`} 
+            className="font-display font-extrabold text-3xl sm:text-5xl text-white tracking-tight leading-tight" 
+          />
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="font-sans text-slate-600 text-base leading-relaxed max-w-2xl"
+          >
             {service.tagline}
-          </p>
+          </motion.p>
         </div>
       </section>
 
@@ -79,15 +89,23 @@ export const ServiceDetail: React.FC = () => {
           
           {/* Service Image Banner */}
           {service.image && (
-            <div className="relative h-64 sm:h-96 w-full rounded-3xl overflow-hidden shadow-lg border border-slate-100/80">
-              <img 
-                src={service.image} 
-                alt={service.title} 
-                className="w-full h-full object-cover transform hover:scale-[1.02] transition-transform duration-750 ease-out"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/20 via-transparent to-transparent"></div>
-            </div>
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, type: 'spring' }}
+            >
+              <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5} glareEnable={true} glareMaxOpacity={0.2} glarePosition="all" transitionSpeed={1500} scale={1.01}>
+                <div className="relative h-64 sm:h-96 w-full rounded-3xl overflow-hidden shadow-lg border border-slate-100/80">
+                  <img 
+                    src={service.image} 
+                    alt={service.title} 
+                    className="w-full h-full object-cover transform hover:scale-[1.05] transition-transform duration-[2000ms] ease-out"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent"></div>
+                </div>
+              </Tilt>
+            </motion.div>
           )}
 
           {/* Detailed Paragraph Copy */}
@@ -99,17 +117,27 @@ export const ServiceDetail: React.FC = () => {
           </div>
 
           {/* Key Features Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={{
+              hidden: { opacity: 0 },
+              visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+            }}
+            className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+          >
             {service.features.map((feat, idx) => (
-              <div 
+              <motion.div 
                 key={idx}
-                className="bg-white rounded-2xl p-5 border border-slate-100/80 shadow-sm flex items-center gap-3.5"
+                variants={{ hidden: { opacity: 0, x: -50 }, visible: { opacity: 1, x: 0, transition: { type: 'spring' } } }}
+                className="bg-white rounded-2xl p-5 border border-slate-100/80 shadow-sm flex items-center gap-3.5 hover:shadow-md hover:-translate-y-0.5 transition-all"
               >
                 <div className="w-10 h-10 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center shrink-0">🛡️</div>
                 <span className="font-display font-bold text-sm text-brand-primary leading-tight">{feat}</span>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           {/* Structural Specifications */}
           <div className="bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-sm flex flex-col gap-6">
@@ -166,16 +194,20 @@ export const ServiceDetail: React.FC = () => {
             </p>
 
             <div className="flex flex-col gap-3 mt-2">
-              <Button variant="whatsapp" onClick={triggerWhatsAppWithService} fullWidth>
-                Book Inspection
-              </Button>
-              
-              <a href="tel:9550779976" className="w-full">
-                <Button variant="outline" className="w-full border-slate-200 text-white hover:bg-slate-100">
-                  <PhoneCall className="w-4 h-4 mr-2 text-brand-accent" />
-                  +91 95507 79976
+              <MagneticButton>
+                <Button variant="whatsapp" onClick={triggerWhatsAppWithService} className="w-full block">
+                  Book Inspection
                 </Button>
-              </a>
+              </MagneticButton>
+              
+              <MagneticButton>
+                <a href="tel:9550779976" className="w-full block">
+                  <Button variant="outline" className="w-full border-slate-200 text-white hover:bg-slate-100">
+                    <PhoneCall className="w-4 h-4 mr-2 text-brand-accent" />
+                    +91 95507 79976
+                  </Button>
+                </a>
+              </MagneticButton>
             </div>
           </div>
 

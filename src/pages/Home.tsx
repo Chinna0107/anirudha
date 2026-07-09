@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle2, PhoneCall, ArrowRight, Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowRight, CheckCircle2, PhoneCall, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { Accordion } from '../components/ui/Accordion';
+import { BeforeAfterSlider } from '../components/ui/BeforeAfterSlider';
 import { servicesData } from '../data/servicesData';
 import { useSEO } from '../hooks/useSEO';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { InfiniteCarousel } from '../components/ui/InfiniteCarousel';
+import { TestimonialSlider } from '../components/ui/TestimonialSlider';
+import { MagneticButton } from '../components/ui/MagneticButton';
+import { TextReveal } from '../components/ui/TextReveal';
+import Tilt from 'react-parallax-tilt';
 import CountUpPkg from 'react-countup';
 import TypewriterPkg from 'typewriter-effect';
 
@@ -23,6 +29,11 @@ export const Home: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<CategoryType>('all');
   const [searchText, setSearchText] = useState('');
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Parallax scroll setup
+  const { scrollYProgress } = useScroll();
+  const heroY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
 
   const slideshowImages = [
     {
@@ -93,22 +104,35 @@ export const Home: React.FC = () => {
     <div className="flex flex-col w-full overflow-hidden">
       
       {/* 1. Hero Section (Ultra-Premium Architectural Theme) */}
-      <section className="relative flex flex-col md:flex-row md:items-center md:justify-center md:min-h-screen text-white pt-20 pb-10 md:py-28 px-6 md:px-0 overflow-hidden group bg-gradient-to-br from-brand-darker via-brand-dark to-[#040814] md:bg-transparent">
+      <section className="relative flex flex-col md:flex-row md:items-center md:justify-center md:min-h-screen text-white pt-20 pb-10 md:py-28 px-6 md:px-0 overflow-hidden group bg-brand-darker md:bg-transparent">
         
-        {/* Gradient Overlay for Readability (Desktop Only, no blur) */}
-        <div className="hidden md:block absolute inset-0 z-10 bg-gradient-to-br from-brand-darker/90 via-brand-dark/80 to-transparent pointer-events-none"></div>
-        <div className="hidden md:block absolute inset-0 z-10 bg-[radial-gradient(ellipse_at_top_right,rgba(234,179,8,0.15),transparent_50%)] pointer-events-none"></div>
+        {/* Animated Gradient / Mesh Overlay */}
+        <div className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_50%_50%,rgba(212,175,55,0.08),transparent_70%)] animate-[pulse_4s_ease-in-out_infinite] pointer-events-none" />
+        <div className="hidden md:block absolute inset-0 z-10 bg-gradient-to-br from-brand-darker/95 via-brand-dark/80 to-transparent pointer-events-none" />
 
-        {/* Content Box (Top on mobile, Centered overlay on desktop) */}
-        <div className="max-w-5xl mx-auto flex flex-col items-center text-center gap-8 relative z-20">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs md:text-sm font-semibold font-sans tracking-wide text-brand-accent shadow-xl">
+        {/* Content Box with Parallax */}
+        <motion.div 
+          style={{ y: heroY, opacity: heroOpacity }}
+          className="max-w-5xl mx-auto flex flex-col items-center text-center gap-8 relative z-20"
+        >
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs md:text-sm font-semibold font-sans tracking-wide text-brand-accent shadow-xl"
+          >
             <Star className="w-4 h-4 fill-brand-accent text-brand-accent" />
             <span>South India's Most Trusted Safety Installer - <strong>Aniruddaya Enterprises</strong></span>
-          </div>
+          </motion.div>
 
           {/* Premium SEO H1 Heading */}
-          <div className="flex flex-col gap-6 max-w-4xl px-4 md:px-0">
-            <h1 className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white tracking-tight leading-tight min-h-[3em] sm:min-h-[2.5em] md:min-h-[2em] drop-shadow-xl">
+          <div className="flex flex-col gap-6 max-w-4xl px-4 md:px-0 overflow-hidden">
+            <motion.h1 
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4, type: 'spring' }}
+              className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white tracking-tight leading-tight min-h-[3em] sm:min-h-[2.5em] md:min-h-[2em] drop-shadow-xl"
+            >
               South India's Premier <br className="hidden sm:block" />
               <span className="text-brand-accent inline-block drop-shadow-lg">
                 <Typewriter
@@ -121,29 +145,48 @@ export const Home: React.FC = () => {
                   }}
                 />
               </span>
-            </h1>
-            <p className="font-sans text-slate-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed drop-shadow-md">
+            </motion.h1>
+            <motion.p 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 0.8 }}
+              className="font-sans text-slate-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed drop-shadow-md"
+            >
               Architectural-grade child fall prevention netting, pigeon exclusions, and marine SS-316 invisible grills custom-tensioned for high-rise residences.
-            </p>
+            </motion.p>
           </div>
           
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 w-full sm:w-auto mt-2 md:mt-4">
-            <Link to="/contact" className="w-full sm:w-auto">
-              <Button variant="primary" size="lg" className="w-full sm:w-auto text-slate-900 font-bold py-4 md:py-6 px-8 shadow-xl shadow-brand-primary/30 text-sm md:text-base">
-                Book Free Site Visit
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-            </Link>
-            <a href="tel:9550779976" className="w-full sm:w-auto">
-              <Button variant="outline" size="lg" className="w-full sm:w-auto border-white/30 text-white hover:bg-white/10 backdrop-blur-sm text-sm md:text-base py-4 md:py-6 px-8 shadow-xl">
-                <PhoneCall className="w-5 h-5 mr-2 text-brand-accent" />
-                +91 95507 79976
-              </Button>
-            </a>
-          </div>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1 }}
+            className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 w-full sm:w-auto mt-2 md:mt-4"
+          >
+            <MagneticButton>
+              <Link to="/contact" className="w-full sm:w-auto block">
+                <Button variant="primary" size="lg" className="w-full sm:w-auto font-bold py-4 md:py-6 px-8 text-sm md:text-base group">
+                  Book Free Site Visit
+                  <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </Link>
+            </MagneticButton>
+            <MagneticButton>
+              <a href="tel:9550779976" className="w-full sm:w-auto block">
+                <Button variant="outline" size="lg" className="w-full sm:w-auto border-white/30 text-white hover:bg-white/10 backdrop-blur-sm text-sm md:text-base py-4 md:py-6 px-8 shadow-xl">
+                  <PhoneCall className="w-5 h-5 mr-2 text-brand-accent" />
+                  +91 95507 79976
+                </Button>
+              </a>
+            </MagneticButton>
+          </motion.div>
 
           {/* Quick Metrics */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-16 border-t border-white/20 pt-8 md:pt-10 mt-4 md:mt-6 w-full text-center">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 1.2 }}
+            className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-16 border-t border-white/20 pt-8 md:pt-10 mt-4 md:mt-6 w-full text-center"
+          >
             <div className="flex flex-col items-center">
               <span className="font-display font-extrabold text-2xl md:text-3xl lg:text-4xl text-white drop-shadow-lg">
                 <CountUp end={12000} duration={3} separator="," enableScrollSpy scrollSpyOnce />+
@@ -160,21 +203,25 @@ export const Home: React.FC = () => {
               <span className="font-display font-extrabold text-2xl md:text-3xl lg:text-4xl text-white drop-shadow-lg">Same-Day</span>
               <span className="text-[10px] md:text-sm text-brand-accent uppercase tracking-widest font-bold mt-1 md:mt-2">Fast Execution</span>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        {/* Slideshow Box (Below content on mobile, Absolute Full Screen on Desktop) */}
+        {/* Slideshow Box (Ken Burns Effect) */}
         <div className="relative md:absolute md:inset-0 z-0 h-64 sm:h-96 md:h-full w-full max-w-3xl md:max-w-none mx-auto mt-10 md:mt-0 rounded-3xl md:rounded-none overflow-hidden border border-slate-100 md:border-none shadow-2xl md:shadow-none">
           {slideshowImages.map((slide, idx) => (
             <div 
               key={idx}
-              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${idx === currentSlide ? 'opacity-100 z-0' : 'opacity-0 -z-10'}`}
+              className={`absolute inset-0 transition-opacity duration-[1500ms] ease-in-out ${idx === currentSlide ? 'opacity-100 z-0' : 'opacity-0 -z-10'}`}
             >
               <img 
                 src={slide.src} 
                 alt={slide.title} 
-                className="w-full h-full object-cover transition-transform duration-[6000ms] ease-out"
-                style={idx === currentSlide ? { transform: 'scale(1.05)', transition: 'transform 6000ms ease-out' } : undefined}
+                className="w-full h-full object-cover origin-center"
+                style={
+                  idx === currentSlide 
+                    ? { transform: 'scale(1.1) translate(1%, 1%)', transition: 'transform 8000ms ease-out' } 
+                    : { transform: 'scale(1)', transition: 'transform 0s' }
+                }
               />
             </div>
           ))}
@@ -209,91 +256,164 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* 2. Service Pillars Segment */}
-      <section className="py-20 px-6 bg-slate-50">
-        <div className="max-w-7xl mx-auto flex flex-col gap-12">
-          
-          <div className="text-center max-w-2xl mx-auto flex flex-col gap-4">
-            <span className="text-xs uppercase tracking-widest text-slate-500 font-extrabold font-display">Specialized Offerings</span>
-            <h2 className="font-display font-black text-3xl sm:text-4xl text-brand-primary leading-tight">
-              Premium Safety Pillars
+      {/* 1.5 Before and After Transformation Sliders */}
+      <section className="py-20 px-6 bg-white overflow-hidden relative border-b border-slate-100">
+        <div className="absolute inset-0 bg-brand-primary/5 pointer-events-none transform -skew-y-3 z-0" />
+        <div className="max-w-7xl mx-auto flex flex-col gap-12 relative z-10">
+          <div className="text-center max-w-3xl mx-auto flex flex-col gap-4">
+            <span className="text-xs uppercase tracking-widest text-brand-primary font-extrabold font-display">Visible Results</span>
+            <h2 className="font-display font-black text-3xl sm:text-4xl text-slate-900 leading-tight">
+              See the Transformation
             </h2>
+            <p className="text-slate-500 font-sans text-sm sm:text-base leading-relaxed">
+              Experience the difference with our high-quality pigeon exclusions and balcony safety nets. Swipe left and right to see the invisible yet highly secure transformations.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 overflow-hidden">
+            {/* Pigeon Nets Slider */}
+            <motion.div 
+              initial={{ opacity: 0, x: -100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, type: 'spring', damping: 20 }}
+              className="flex flex-col gap-6"
+            >
+              <div className="text-center">
+                <h3 className="font-display font-bold text-2xl text-brand-primary">Pigeon Safety Nets</h3>
+                <p className="text-slate-500 text-sm mt-2">Keep balconies clean and free from bird roosting.</p>
+              </div>
+              <BeforeAfterSlider 
+                beforeImage="/balcony.jpeg" 
+                afterImage="/image 5.jpg"
+                beforeLabel="Before (Open & Unprotected)"
+                afterLabel="After (Pigeon Nets)"
+              />
+            </motion.div>
+
+            {/* Balcony Safety Nets Slider */}
+            <motion.div 
+              initial={{ opacity: 0, x: 100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, type: 'spring', damping: 20 }}
+              className="flex flex-col gap-6"
+            >
+              <div className="text-center">
+                <h3 className="font-display font-bold text-2xl text-brand-primary">Balcony Safety Nets</h3>
+                <p className="text-slate-500 text-sm mt-2">Child and pet fall prevention with zero visibility loss.</p>
+              </div>
+              <Tilt tiltMaxAngleX={10} tiltMaxAngleY={10} perspective={1000} transitionSpeed={1000} scale={1.02}>
+                <BeforeAfterSlider 
+                  beforeImage="/balcony.jpeg" 
+                  afterImage="/image 1.jpg"
+                  beforeLabel="Before (Open Ledge)"
+                  afterLabel="After (Safety Nets)"
+                />
+              </Tilt>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2. Service Pillars Segment with Scroll Reveal */}
+      <section className="py-20 px-6 bg-slate-50 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto flex flex-col gap-12 relative z-10">
+          
+          <motion.div 
+            initial={{ opacity: 0, x: -100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, type: 'spring' }}
+            className="text-center max-w-2xl mx-auto flex flex-col gap-4"
+          >
+            <span className="text-xs uppercase tracking-widest text-slate-500 font-extrabold font-display">Specialized Offerings</span>
+            <TextReveal 
+              text="Premium Safety Pillars" 
+              className="font-display font-black text-3xl sm:text-4xl text-brand-primary leading-tight" 
+            />
             <p className="text-slate-500 font-sans text-sm sm:text-base leading-relaxed">
               We fabricate and rig custom high-strength netting and premium stainless-steel grill wire systems engineered for modern residences.
             </p>
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Pillar 1: Bird Safety Nets */}
             <motion.div 
-              whileHover={{ y: -8, scale: 1.02 }}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, type: 'spring' }}
-              className="bg-white rounded-3xl p-8 border border-slate-100/80 shadow-lg shadow-slate-100 flex flex-col items-start gap-5 transition-all duration-300 hover:shadow-xl"
             >
-              <motion.div whileHover={{ scale: 1.1, rotate: 10 }} className="w-12 h-12 bg-brand-primary/10 rounded-2xl flex items-center justify-center text-xl text-brand-primary">🕸️</motion.div>
-              <h3 className="font-display font-bold text-xl text-brand-primary">Bird & Child Safety Nets</h3>
-              <p className="text-slate-500 font-sans text-sm leading-relaxed">
-                UV-stabilized virgin HDPE safety nets custom-measured for balcony fall prevention, pigeon protection, pet safeguards, and utility shafts by <strong>Aniruddaya Enterprises</strong>.
-              </p>
-              <ul className="flex flex-col gap-2.5 text-xs text-slate-500 font-sans mt-2">
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> Balcony Safety Netting</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> Kids Play Yard Safeguards</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> Anti-Bird Ledge Spikes</li>
-              </ul>
-              <Link to="/services/balcony-safety-nets" className="mt-auto pt-4 inline-flex items-center gap-1 text-sm font-semibold text-brand-primary hover:text-brand-accent transition-colors font-display">
-                Learn More <ArrowRight className="w-4 h-4" />
-              </Link>
+              <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5} glareEnable={true} glareMaxOpacity={0.1} glareColor="#d4af37" glarePosition="all" className="h-full">
+                <div className="bg-white rounded-3xl p-8 border border-slate-100/80 shadow-lg shadow-slate-100 flex flex-col items-start gap-5 transition-all duration-300 hover:shadow-xl h-full">
+                  <motion.div whileHover={{ scale: 1.1, rotate: 10 }} className="w-12 h-12 bg-brand-primary/10 rounded-2xl flex items-center justify-center text-xl text-brand-primary">🕸️</motion.div>
+                  <h3 className="font-display font-bold text-xl text-brand-primary">Bird & Child Safety Nets</h3>
+                  <p className="text-slate-500 font-sans text-sm leading-relaxed">
+                    UV-stabilized virgin HDPE safety nets custom-measured for balcony fall prevention, pigeon protection, pet safeguards, and utility shafts by <strong>Aniruddaya Enterprises</strong>.
+                  </p>
+                  <ul className="flex flex-col gap-2.5 text-xs text-slate-500 font-sans mt-2">
+                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> Balcony Safety Netting</li>
+                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> Kids Play Yard Safeguards</li>
+                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> Anti-Bird Ledge Spikes</li>
+                  </ul>
+                  <Link to="/services/balcony-safety-nets" className="mt-auto pt-4 inline-flex items-center gap-1 text-sm font-semibold text-brand-primary hover:text-brand-accent transition-colors font-display">
+                    Learn More <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </Tilt>
             </motion.div>
 
             {/* Pillar 2: Invisible Grills */}
             <motion.div 
-              whileHover={{ y: -8, scale: 1.02 }}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1, type: 'spring' }}
-              className="bg-white rounded-3xl p-8 border border-slate-100/80 shadow-lg shadow-slate-100 flex flex-col items-start gap-5 transition-all duration-300 hover:shadow-xl"
             >
-              <motion.div whileHover={{ scale: 1.1, rotate: 10 }} className="w-12 h-12 bg-brand-primary/10 rounded-2xl flex items-center justify-center text-xl text-brand-primary">🛡️</motion.div>
-              <h3 className="font-display font-bold text-xl text-brand-primary">Invisible Grill Systems</h3>
-              <p className="text-slate-500 font-sans text-sm leading-relaxed">
-                Grade 316 Marine Stainless Steel wire cables running vertically or horizontally. High-tensile security with 100% skyline views.
-              </p>
-              <ul className="flex flex-col gap-2.5 text-xs text-slate-500 font-sans mt-2">
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> Balcony Invisible Grills</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> High-rise Window Grates</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> Bite-resistant Pet Grills</li>
-              </ul>
-              <Link to="/services/vertical-invisible-grills" className="mt-auto pt-4 inline-flex items-center gap-1 text-sm font-semibold text-brand-primary hover:text-brand-accent transition-colors font-display">
-                Learn More <ArrowRight className="w-4 h-4" />
-              </Link>
+              <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5} glareEnable={true} glareMaxOpacity={0.1} glareColor="#d4af37" glarePosition="all" className="h-full">
+                <div className="bg-white rounded-3xl p-8 border border-slate-100/80 shadow-lg shadow-slate-100 flex flex-col items-start gap-5 transition-all duration-300 hover:shadow-xl h-full">
+                  <motion.div whileHover={{ scale: 1.1, rotate: 10 }} className="w-12 h-12 bg-brand-primary/10 rounded-2xl flex items-center justify-center text-xl text-brand-primary">🛡️</motion.div>
+                  <h3 className="font-display font-bold text-xl text-brand-primary">Invisible Grill Systems</h3>
+                  <p className="text-slate-500 font-sans text-sm leading-relaxed">
+                    Grade 316 Marine Stainless Steel wire cables running vertically or horizontally. High-tensile security with 100% skyline views.
+                  </p>
+                  <ul className="flex flex-col gap-2.5 text-xs text-slate-500 font-sans mt-2">
+                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> Balcony Invisible Grills</li>
+                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> High-rise Window Grates</li>
+                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> Bite-resistant Pet Grills</li>
+                  </ul>
+                  <Link to="/services/vertical-invisible-grills" className="mt-auto pt-4 inline-flex items-center gap-1 text-sm font-semibold text-brand-primary hover:text-brand-accent transition-colors font-display">
+                    Learn More <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </Tilt>
             </motion.div>
 
             {/* Pillar 3: Sports Nets */}
             <motion.div 
-              whileHover={{ y: -8, scale: 1.02 }}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2, type: 'spring' }}
-              className="bg-white rounded-3xl p-8 border border-slate-100/80 shadow-lg shadow-slate-100 flex flex-col items-start gap-5 transition-all duration-300 hover:shadow-xl"
             >
-              <motion.div whileHover={{ scale: 1.1, rotate: 10 }} className="w-12 h-12 bg-brand-primary/10 rounded-2xl flex items-center justify-center text-xl text-brand-primary">⚽</motion.div>
-              <h3 className="font-display font-bold text-xl text-brand-primary">Sports & Industrial Rigging</h3>
-              <p className="text-slate-500 font-sans text-sm leading-relaxed">
-                Heavy-gauge knotted sports enclosures for cricket practice, soccer boundaries, rooftop fields, atriums, and duct industrial safety.
-              </p>
-              <ul className="flex flex-col gap-2.5 text-xs text-slate-500 font-sans mt-2">
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> Cricket Practice Box Cages</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> Rooftop Ball Stop Netting</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> High-impact Debris Nets</li>
-              </ul>
-              <Link to="/services/cricket-practice-nets" className="mt-auto pt-4 inline-flex items-center gap-1 text-sm font-semibold text-brand-primary hover:text-brand-accent transition-colors font-display">
-                Learn More <ArrowRight className="w-4 h-4" />
-              </Link>
+              <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5} glareEnable={true} glareMaxOpacity={0.1} glareColor="#d4af37" glarePosition="all" className="h-full">
+                <div className="bg-white rounded-3xl p-8 border border-slate-100/80 shadow-lg shadow-slate-100 flex flex-col items-start gap-5 transition-all duration-300 hover:shadow-xl h-full">
+                  <motion.div whileHover={{ scale: 1.1, rotate: 10 }} className="w-12 h-12 bg-brand-primary/10 rounded-2xl flex items-center justify-center text-xl text-brand-primary">⚽</motion.div>
+                  <h3 className="font-display font-bold text-xl text-brand-primary">Sports & Industrial Rigging</h3>
+                  <p className="text-slate-500 font-sans text-sm leading-relaxed">
+                    Heavy-gauge knotted sports enclosures for cricket practice, soccer boundaries, rooftop fields, atriums, and duct industrial safety.
+                  </p>
+                  <ul className="flex flex-col gap-2.5 text-xs text-slate-500 font-sans mt-2">
+                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> Cricket Practice Box Cages</li>
+                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> Rooftop Ball Stop Netting</li>
+                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> High-impact Debris Nets</li>
+                  </ul>
+                  <Link to="/services/cricket-practice-nets" className="mt-auto pt-4 inline-flex items-center gap-1 text-sm font-semibold text-brand-primary hover:text-brand-accent transition-colors font-display">
+                    Learn More <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </Tilt>
             </motion.div>
           </div>
 
@@ -304,15 +424,22 @@ export const Home: React.FC = () => {
       <section className="py-20 px-6 bg-white border-t border-slate-100">
         <div className="max-w-7xl mx-auto flex flex-col gap-12">
           
-          <div className="text-center max-w-2xl mx-auto flex flex-col gap-4">
+          <motion.div 
+            initial={{ opacity: 0, x: 100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, type: 'spring' }}
+            className="text-center max-w-2xl mx-auto flex flex-col gap-4"
+          >
             <span className="text-xs uppercase tracking-widest text-slate-500 font-extrabold font-display">Interactive Catalog</span>
-            <h2 className="font-display font-black text-3xl sm:text-4xl text-brand-primary leading-tight">
-              Explore Our Full Safety Range
-            </h2>
+            <TextReveal 
+              text="Explore Our Full Safety Range" 
+              className="font-display font-black text-3xl sm:text-4xl text-brand-primary leading-tight" 
+            />
             <p className="text-slate-500 font-sans text-sm sm:text-base leading-relaxed">
               Browse our complete selection of 16 high-strength safety nets, invisible window grills, and sports/industrial netting solutions. Filter by category or search instantly.
             </p>
-          </div>
+          </motion.div>
 
           {/* Interactive Filtering Tabs & Search Bar */}
           <div className="flex flex-col xl:flex-row gap-6 justify-between items-center bg-slate-50 p-4 rounded-3xl border border-slate-100/80">
@@ -352,53 +479,79 @@ export const Home: React.FC = () => {
 
           {/* Dynamic Grid Results */}
           {filteredServices.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <motion.div 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: {
+                    staggerChildren: 0.1
+                  }
+                }
+              }}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+            >
               {filteredServices.map((service) => (
-                <div 
+                <motion.div 
                   key={service.slug}
-                  className="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-md shadow-slate-100 hover:shadow-xl hover:shadow-slate-200/60 hover:-translate-y-1.5 transition-all duration-300 flex flex-col h-full"
+                  variants={{
+                    hidden: { opacity: 0, y: 60, rotateX: 20, scale: 0.9 },
+                    visible: { opacity: 1, y: 0, rotateX: 0, scale: 1, transition: { type: 'spring', stiffness: 80, damping: 20 } }
+                  }}
+                  className="h-full perspective-1000"
                 >
-                  {/* Service Card Image */}
-                  <div className="relative h-48 w-full bg-slate-100 overflow-hidden">
-                    <img 
-                      src={service.image} 
-                      alt={service.title}
-                      className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                    <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm border border-slate-100 px-2.5 py-1 rounded-xl text-[10px] font-display font-extrabold uppercase tracking-wider text-brand-primary shadow-sm max-w-[85%] truncate">
-                      {service.categoryLabel}
-                    </div>
-                  </div>
+                  <Tilt tiltMaxAngleX={8} tiltMaxAngleY={8} glareEnable={true} glareMaxOpacity={0.15} glarePosition="all" transitionSpeed={1000} className="h-full">
+                    <div className="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-md shadow-slate-100 hover:shadow-xl hover:shadow-slate-200/60 transition-all duration-300 flex flex-col h-full hover:-translate-y-1">
+                      {/* Service Card Image */}
+                      <div className="relative h-48 w-full bg-slate-100 overflow-hidden">
+                        <img 
+                          src={service.image} 
+                          alt={service.title}
+                          className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
+                          loading="lazy"
+                        />
+                        <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm border border-slate-100 px-2.5 py-1 rounded-xl text-[10px] font-display font-extrabold uppercase tracking-wider text-brand-primary shadow-sm max-w-[85%] truncate">
+                          {service.categoryLabel}
+                        </div>
+                      </div>
 
-                  {/* Card Content */}
-                  <div className="p-6 flex flex-col flex-1 gap-3.5">
-                    <h3 className="font-display font-black text-lg text-brand-primary leading-snug">
-                      {service.title}
-                    </h3>
-                    <p className="text-slate-500 font-sans text-xs sm:text-sm leading-relaxed line-clamp-3">
-                      {service.tagline}
-                    </p>
-                    <div className="mt-auto flex flex-col xs:flex-row gap-2 w-full pt-2">
-                      <Link 
-                        to={`/services/${service.slug}`}
-                        className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-4 bg-slate-50 text-brand-primary hover:bg-brand-primary hover:text-white font-display font-bold text-xs rounded-xl transition-all border border-slate-100"
-                      >
-                        <span>Specifications</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </Link>
-                      <a 
-                        href="tel:9550779976"
-                        className="inline-flex items-center justify-center gap-1.5 py-2.5 px-4 bg-brand-primary text-slate-900 hover:bg-slate-800 font-display font-bold text-xs rounded-xl transition-all shadow-sm"
-                      >
-                        <PhoneCall className="w-3.5 h-3.5" />
-                        <span>Call</span>
-                      </a>
+                      {/* Card Content */}
+                      <div className="p-6 flex flex-col flex-1 gap-3.5">
+                        <h3 className="font-display font-black text-lg text-brand-primary leading-snug">
+                          {service.title}
+                        </h3>
+                        <p className="text-slate-500 font-sans text-xs sm:text-sm leading-relaxed line-clamp-3">
+                          {service.tagline}
+                        </p>
+                        <div className="mt-auto flex flex-col xs:flex-row gap-2 w-full pt-2">
+                          <MagneticButton>
+                            <Link 
+                              to={`/services/${service.slug}`}
+                              className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-4 bg-slate-50 text-brand-primary hover:bg-brand-primary hover:text-white font-display font-bold text-xs rounded-xl transition-all border border-slate-100"
+                            >
+                              <span>Specifications</span>
+                              <ArrowRight className="w-3.5 h-3.5" />
+                            </Link>
+                          </MagneticButton>
+                          <MagneticButton>
+                            <a 
+                              href="tel:9550779976"
+                              className="inline-flex items-center justify-center gap-1.5 py-2.5 px-4 bg-brand-primary text-slate-900 hover:bg-slate-800 font-display font-bold text-xs rounded-xl transition-all shadow-sm"
+                            >
+                              <PhoneCall className="w-3.5 h-3.5" />
+                              <span>Call</span>
+                            </a>
+                          </MagneticButton>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
+                  </Tilt>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           ) : (
             <div className="text-center py-16 flex flex-col items-center gap-4 bg-slate-50 rounded-3xl border border-dashed border-slate-200">
               <span className="text-4xl">🔎</span>
@@ -418,13 +571,47 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
+      {/* Infinite Logo Carousel */}
+      <InfiniteCarousel />
 
+      {/* Testimonials Auto Fade Slider */}
+      <section className="py-24 px-6 bg-[#040814] relative overflow-hidden">
+        {/* Animated Background Mesh */}
+        <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_30%_50%,rgba(212,175,55,0.05),transparent_60%)] animate-[pulse_5s_ease-in-out_infinite]" />
+        
+        <div className="max-w-7xl mx-auto flex flex-col gap-16 relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center max-w-2xl mx-auto flex flex-col gap-4"
+          >
+            <span className="text-xs uppercase tracking-widest text-brand-accent font-extrabold font-display">Client Feedback</span>
+            <TextReveal 
+              text="Trusted by Thousands" 
+              className="font-display font-black text-3xl sm:text-4xl text-white leading-tight" 
+            />
+            <p className="text-slate-400 font-sans text-sm sm:text-base leading-relaxed">
+              Don't just take our word for it. Hear what families and facility managers across South India have to say about our safety installations.
+            </p>
+          </motion.div>
+
+          <TestimonialSlider />
+        </div>
+      </section>
 
       {/* 4. Trust Signals & Material Standards */}
       <section className="py-20 px-6 bg-slate-900 text-white relative">
         <div className="max-w-7xl mx-auto flex flex-col gap-16">
           
-          <div className="text-center max-w-2xl mx-auto flex flex-col gap-4">
+          <motion.div 
+            initial={{ opacity: 0, x: -100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, type: 'spring' }}
+            className="text-center max-w-2xl mx-auto flex flex-col gap-4"
+          >
             <span className="text-xs uppercase tracking-widest text-brand-accent font-extrabold font-display">Uncompromising Quality</span>
             <h2 className="font-display font-black text-3xl sm:text-4xl text-white leading-tight">
               Engineered Safety Standards
@@ -432,41 +619,50 @@ export const Home: React.FC = () => {
             <p className="text-slate-300 font-sans text-sm sm:text-base leading-relaxed">
               We never use cheap recycled plastics or standard mild steels. Our safety systems undergo rigorous physical stress audits.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="flex flex-col items-center text-center gap-3.5 p-4">
-              <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/10 text-brand-accent flex items-center justify-center text-xl">💎</div>
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={{
+              hidden: { opacity: 0 },
+              visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
+            }}
+            className="grid grid-cols-1 md:grid-cols-4 gap-8"
+          >
+            <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="flex flex-col items-center text-center gap-3.5 p-4 group">
+              <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/10 text-brand-accent flex items-center justify-center text-xl transition-transform group-hover:scale-110 group-hover:bg-brand-accent/20">💎</div>
               <h4 className="font-display font-bold text-lg text-white">SS 316 Wire Core</h4>
               <p className="text-xs text-slate-400 leading-relaxed font-sans">
                 Invisible grills feature Marine Grade 316 Stainless Steel cores wrapped in anti-abrasive DuPont Teflon sleeve. Zero rust.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="flex flex-col items-center text-center gap-3.5 p-4">
-              <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/10 text-brand-accent flex items-center justify-center text-xl">☀️</div>
+            <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="flex flex-col items-center text-center gap-3.5 p-4 group">
+              <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/10 text-brand-accent flex items-center justify-center text-xl transition-transform group-hover:scale-110 group-hover:bg-brand-accent/20">☀️</div>
               <h4 className="font-display font-bold text-lg text-white">100% UV Protection</h4>
               <p className="text-xs text-slate-400 leading-relaxed font-sans">
                 Our polymer nets are treated with raw UV-stabilizing masterbatches, preventing color yellowing or sun decay for 8+ years.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="flex flex-col items-center text-center gap-3.5 p-4">
-              <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/10 text-brand-accent flex items-center justify-center text-xl">🧱</div>
+            <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="flex flex-col items-center text-center gap-3.5 p-4 group">
+              <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/10 text-brand-accent flex items-center justify-center text-xl transition-transform group-hover:scale-110 group-hover:bg-brand-accent/20">🧱</div>
               <h4 className="font-display font-bold text-lg text-white">Anodized Tracks</h4>
               <p className="text-xs text-slate-400 leading-relaxed font-sans">
                 Invisible grill anchor tracks are machined out of heavy structural-grade anodized aluminum alloys for absolute pull strength.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="flex flex-col items-center text-center gap-3.5 p-4">
-              <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/10 text-brand-accent flex items-center justify-center text-xl">🎖️</div>
+            <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="flex flex-col items-center text-center gap-3.5 p-4 group">
+              <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/10 text-brand-accent flex items-center justify-center text-xl transition-transform group-hover:scale-110 group-hover:bg-brand-accent/20">🎖️</div>
               <h4 className="font-display font-bold text-lg text-white">Licensed Riggers</h4>
               <p className="text-xs text-slate-400 leading-relaxed font-sans">
                 All high-elevation safety rope fitments are executed by technicians certified in active safety harnesses and fall arresters.
               </p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
         </div>
       </section>
