@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Phone, ShieldCheck } from 'lucide-react';
+import { Menu, X, Phone, ShieldCheck, ChevronDown } from 'lucide-react';
 import { Button } from '../ui/Button';
+import { servicesData } from '../../data/servicesData';
 
 const InstagramIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
@@ -127,20 +128,55 @@ export const Header: React.FC = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`font-display text-sm font-semibold tracking-wide hover:text-brand-accent transition-colors duration-200 relative group ${
-                  location.pathname === link.path 
-                    ? 'text-brand-accent' 
-                    : (isScrolled ? 'text-slate-700' : 'text-slate-800 drop-shadow-sm')
-                }`}
-              >
-                {link.name}
-                <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-accent transition-all duration-300 group-hover:w-full ${location.pathname === link.path ? 'w-full' : ''}`}></span>
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              if (link.name === 'Services') {
+                return (
+                  <div key={link.path} className="relative group">
+                    <Link
+                      to={link.path}
+                      className={`font-display text-sm font-semibold tracking-wide hover:text-brand-accent transition-colors duration-200 relative group flex items-center gap-1 ${
+                        location.pathname.includes('/services') 
+                          ? 'text-brand-accent' 
+                          : (isScrolled ? 'text-slate-700' : 'text-slate-800 drop-shadow-sm')
+                      }`}
+                    >
+                      {link.name}
+                      <ChevronDown className="w-3.5 h-3.5" />
+                      <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-accent transition-all duration-300 group-hover:w-full ${location.pathname.includes('/services') ? 'w-full' : ''}`}></span>
+                    </Link>
+                    {/* Services Dropdown */}
+                    <div className="absolute top-full left-0 pt-6 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
+                      <div className="bg-white rounded-xl shadow-xl border border-slate-100 py-3 w-72 flex flex-col max-h-[70vh] overflow-y-auto custom-scrollbar">
+                        {servicesData.map((service) => (
+                          <Link
+                            key={service.slug}
+                            to={`/services/${service.slug}`}
+                            className="px-5 py-2.5 hover:bg-brand-light text-slate-700 hover:text-brand-primary text-sm transition-colors border-b border-slate-50 last:border-0"
+                          >
+                            {service.title}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
+              return (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className={`font-display text-sm font-semibold tracking-wide hover:text-brand-accent transition-colors duration-200 relative group ${
+                    location.pathname === link.path 
+                      ? 'text-brand-accent' 
+                      : (isScrolled ? 'text-slate-700' : 'text-slate-800 drop-shadow-sm')
+                  }`}
+                >
+                  {link.name}
+                  <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-accent transition-all duration-300 group-hover:w-full ${location.pathname === link.path ? 'w-full' : ''}`}></span>
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Call Trigger CTAs */}
@@ -203,20 +239,53 @@ export const Header: React.FC = () => {
         </div>
 
         <div className="flex flex-col gap-4">
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              onClick={() => setIsOpen(false)}
-              className={`font-display text-base font-bold py-2 border-b border-slate-50 hover:text-brand-accent transition-colors ${
-                location.pathname === link.path 
-                  ? 'text-brand-accent' 
-                  : 'text-slate-600'
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            if (link.name === 'Services') {
+              return (
+                <div key={link.path} className="flex flex-col">
+                  <Link
+                    to={link.path}
+                    onClick={() => setIsOpen(false)}
+                    className={`font-display text-base font-bold py-2 border-b border-slate-50 hover:text-brand-accent transition-colors flex items-center justify-between ${
+                      location.pathname.includes('/services') 
+                        ? 'text-brand-accent' 
+                        : 'text-slate-600'
+                    }`}
+                  >
+                    {link.name}
+                    <ChevronDown className="w-4 h-4 text-slate-400" />
+                  </Link>
+                  <div className="pl-4 mt-2 flex flex-col max-h-48 overflow-y-auto custom-scrollbar border-b border-slate-50">
+                    {servicesData.map((service) => (
+                      <Link
+                        key={service.slug}
+                        to={`/services/${service.slug}`}
+                        onClick={() => setIsOpen(false)}
+                        className="py-2 text-sm text-slate-500 hover:text-brand-primary transition-colors border-b border-slate-50 last:border-0"
+                      >
+                        {service.title}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              );
+            }
+
+            return (
+              <Link
+                key={link.path}
+                to={link.path}
+                onClick={() => setIsOpen(false)}
+                className={`font-display text-base font-bold py-2 border-b border-slate-50 hover:text-brand-accent transition-colors ${
+                  location.pathname === link.path 
+                    ? 'text-brand-accent' 
+                    : 'text-slate-600'
+                }`}
+              >
+                {link.name}
+              </Link>
+            );
+          })}
         </div>
 
         <div className="flex flex-col gap-4 mt-auto pt-6 border-t border-slate-100">
