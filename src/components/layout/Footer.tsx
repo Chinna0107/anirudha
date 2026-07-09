@@ -164,7 +164,13 @@ export const Footer: React.FC = () => {
                 <span className="text-xs transition-transform group-open:rotate-180">▼</span>
               </summary>
               <ul className="mt-2 ml-5 flex flex-col gap-1.5 text-xs text-slate-800/80 border-l-2 border-slate-800/20 pl-3 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
-                {bangaloreLocations.map(loc => <li key={loc} className="hover:text-white hover:font-medium transition-all duration-150 cursor-pointer">{loc}</li>)}
+                {bangaloreLocations.map(loc => (
+                  <li key={loc}>
+                    <Link to={`/areas/${loc.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`} className="hover:text-white hover:font-medium transition-all duration-150 cursor-pointer block">
+                      {loc}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </details>
             <details className="group">
@@ -176,7 +182,13 @@ export const Footer: React.FC = () => {
                 <span className="text-xs transition-transform group-open:rotate-180">▼</span>
               </summary>
               <ul className="mt-2 ml-5 flex flex-col gap-1.5 text-xs text-slate-800/80 border-l-2 border-slate-800/20 pl-3 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
-                {mysoreLocations.map(loc => <li key={loc} className="hover:text-white hover:font-medium transition-all duration-150 cursor-pointer">{loc}</li>)}
+                {mysoreLocations.map(loc => (
+                  <li key={loc}>
+                    <Link to={`/areas/${loc.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`} className="hover:text-white hover:font-medium transition-all duration-150 cursor-pointer block">
+                      {loc}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </details>
           </div>

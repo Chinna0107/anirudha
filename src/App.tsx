@@ -11,6 +11,7 @@ import { BlogHub } from './pages/BlogHub';
 import { BlogPost } from './pages/BlogPost';
 import { Contact } from './pages/Contact';
 import { ServiceDetail } from './pages/ServiceDetail';
+import { LocationDetail } from './pages/LocationDetail';
 import { IntroAnimation } from './components/ui/IntroAnimation';
 import { ScrollProgress } from './components/ui/ScrollProgress';
 import { PageTransition } from './components/ui/PageTransition';
@@ -54,8 +55,10 @@ const App: React.FC = () => {
                 <Route path="/blog" element={<BlogHub />} />
                 <Route path="/blog/:slug" element={<BlogPost />} />
                 <Route path="/contact" element={<Contact />} />
-                {/* Dynamic dynamic route handling 30+ service slugs */}
+                {/* Dynamic routing for services */}
                 <Route path="/services/:slug" element={<ServiceDetail />} />
+                {/* Dynamic routing for locations */}
+                <Route path="/areas/:locationSlug" element={<LocationDetail />} />
                 
                 {/* Catch-all redirection to Homepage */}
                 <Route path="*" element={<Home />} />
