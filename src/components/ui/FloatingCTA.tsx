@@ -27,13 +27,13 @@ export const FloatingCTA: React.FC = () => {
         {/* Call Now */}
         <a 
           href="tel:9550779976" 
-          className="flex items-center gap-2 text-slate-800 hover:text-slate-600 transition-colors duration-200"
+          className="flex items-center gap-2 text-slate-100 hover:text-brand-primary transition-colors duration-200"
           title="Call Aniruddaya Enterprises"
         >
-          <div className="w-8 h-8 rounded-full bg-red-500/25 text-red-400 flex items-center justify-center shrink-0 border border-red-500/20">
+          <div className="w-8 h-8 rounded-full bg-[#d4af37]/25 text-[#d4af37] flex items-center justify-center shrink-0 border border-[#d4af37]/30">
             <Phone className="w-4 h-4" />
           </div>
-          <span className="font-display font-bold text-xs tracking-wide uppercase hidden sm:inline whitespace-nowrap">Call Now</span>
+          <span className="font-display font-bold text-xs tracking-wide uppercase hidden sm:inline whitespace-nowrap text-[#d4af37]">Call Now</span>
         </a>
 
         {/* Vertical Separator */}
@@ -42,16 +42,16 @@ export const FloatingCTA: React.FC = () => {
         {/* WhatsApp Chat */}
         <a 
           href="https://api.whatsapp.com/send?phone=+919550779976&text=Hello Aniruddaya Enterprises, I would like to get a quote and details for Safety Nets / Invisible Grills." 
-          className="flex items-center gap-2 text-slate-800 hover:text-green-500 transition-colors duration-200 group relative"
+          className="flex items-center gap-2 text-slate-100 hover:text-brand-secondary transition-colors duration-200 group relative"
           target="_blank"
           rel="noopener noreferrer"
           title="WhatsApp Chat"
         >
-          <div className="absolute inset-0 bg-green-500/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity"></div>
-          <div className="w-8 h-8 rounded-full bg-green-500/25 text-green-500 flex items-center justify-center shrink-0 border border-green-500/30 animate-[glowPulse_2s_infinite_ease-in-out] relative z-10">
+          <div className="absolute inset-0 bg-[#C0C0C0]/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div className="w-8 h-8 rounded-full bg-[#C0C0C0]/25 text-[#C0C0C0] flex items-center justify-center shrink-0 border border-[#C0C0C0]/30 animate-[glowPulse_2s_infinite_ease-in-out] relative z-10" style={{ boxShadow: '0 0 15px rgba(192, 192, 192, 0.4)' }}>
             <MessageSquare className="w-4 h-4" />
           </div>
-          <span className="font-display font-bold text-xs tracking-wide uppercase whitespace-nowrap">WhatsApp</span>
+          <span className="font-display font-bold text-xs tracking-wide uppercase whitespace-nowrap text-[#C0C0C0]">WhatsApp</span>
         </a>
 
         {/* Vertical Separator */}
@@ -59,16 +59,16 @@ export const FloatingCTA: React.FC = () => {
 
         {/* Instagram Inquiry */}
         <a 
-          href="https://www.instagram.com/aniruddaya_enterprises?igsh=MTM3dHhhbXVveHhxdg==" 
-          className="flex items-center gap-2 text-slate-800 hover:text-pink-400 transition-colors duration-200"
+          href="https://www.instagram.com/aniruddayaenterprises?igsh=bHdjMjE0d2l6Z2t1" 
+          className="flex items-center gap-2 text-slate-100 hover:text-brand-primary transition-colors duration-200"
           target="_blank"
           rel="noopener noreferrer"
           title="Follow Aniruddaya Enterprises on Instagram"
         >
-          <div className="w-8 h-8 rounded-full bg-pink-500/25 text-pink-400 flex items-center justify-center shrink-0 border border-pink-500/20">
+          <div className="w-8 h-8 rounded-full bg-[#d4af37]/25 text-[#d4af37] flex items-center justify-center shrink-0 border border-[#d4af37]/30">
             <InstagramIcon className="w-4.5 h-4.5" />
           </div>
-          <span className="font-display font-bold text-xs tracking-wide uppercase hidden sm:inline whitespace-nowrap">Instagram</span>
+          <span className="font-display font-bold text-xs tracking-wide uppercase hidden sm:inline whitespace-nowrap text-[#d4af37]">Instagram</span>
         </a>
       </div>
     </div>

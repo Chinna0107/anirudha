@@ -26,6 +26,23 @@ const InstagramIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   </svg>
 );
 
+const FacebookIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3.81l.39-4h-4V7a1 1 0 0 1 1-1h3z" />
+  </svg>
+);
+
 export const Contact: React.FC = () => {
   useSEO({
     title: 'Contact Us | Book Free Site Measurement & Demonstration',
@@ -108,19 +125,42 @@ export const Contact: React.FC = () => {
 
             <motion.div variants={{ hidden: { opacity: 0, x: -50 }, visible: { opacity: 1, x: 0, transition: { type: 'spring' } } }} className="flex items-start gap-4 group">
               <MagneticButton className="shrink-0">
-                <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 shadow-sm flex items-center justify-center text-brand-primary group-hover:bg-brand-primary group-hover:text-slate-900 transition-colors">
-                  <InstagramIcon className="w-5 h-5" />
-                </div>
+                <a href="https://www.facebook.com/share/19F38wWFD6/" target="_blank" rel="noopener noreferrer">
+                  <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 shadow-sm flex items-center justify-center text-brand-primary group-hover:bg-brand-primary group-hover:text-slate-900 transition-colors">
+                    <FacebookIcon className="w-5 h-5" />
+                  </div>
+                </a>
               </MagneticButton>
               <div className="flex flex-col">
-                <span className="text-xs text-slate-500 font-display font-bold uppercase tracking-wider">Follow Instagram</span>
+                <span className="text-xs text-slate-500 font-display font-bold uppercase tracking-wider">Follow Facebook</span>
                 <a
-                  href="https://www.instagram.com/aniruddaya_enterprises?igsh=MTM3dHhhbXVveHhxdg=="
+                  href="https://www.facebook.com/share/19F38wWFD6/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-base font-bold text-brand-primary hover:underline font-sans"
                 >
-                  @aniruddaya_enterprises
+                  Facebook Page
+                </a>
+              </div>
+            </motion.div>
+
+            <motion.div variants={{ hidden: { opacity: 0, x: -50 }, visible: { opacity: 1, x: 0, transition: { type: 'spring' } } }} className="flex items-start gap-4 group">
+              <MagneticButton className="shrink-0">
+                <a href="https://www.instagram.com/aniruddayaenterprises?igsh=bHdjMjE0d2l6Z2t1" target="_blank" rel="noopener noreferrer">
+                  <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 shadow-sm flex items-center justify-center text-brand-primary group-hover:bg-brand-primary group-hover:text-slate-900 transition-colors">
+                    <InstagramIcon className="w-5 h-5" />
+                  </div>
+                </a>
+              </MagneticButton>
+              <div className="flex flex-col">
+                <span className="text-xs text-slate-500 font-display font-bold uppercase tracking-wider">Follow Instagram</span>
+                <a
+                  href="https://www.instagram.com/aniruddayaenterprises?igsh=bHdjMjE0d2l6Z2t1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-base font-bold text-brand-primary hover:underline font-sans"
+                >
+                  @aniruddayaenterprises
                 </a>
               </div>
             </motion.div>

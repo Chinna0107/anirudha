@@ -22,6 +22,23 @@ const InstagramIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   </svg>
 );
 
+const FacebookIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3.81l.39-4h-4V7a1 1 0 0 1 1-1h3z" />
+  </svg>
+);
+
 export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
@@ -36,9 +53,22 @@ export const Footer: React.FC = () => {
     ...servicesData.filter(s => s.category === 'invisible-grill' || s.category === 'sports-industrial').map(s => ({ name: s.title, path: `/services/${s.slug}` }))
   ];
 
-  const coverageAreas = [
-    'Bangalore',
-    'Mysore'
+  const bangaloreLocations = [
+    'Whitefield', 'Electronic City', 'Marathahalli', 'HSR Layout', 'Koramangala', 'Indiranagar',
+    'Jayanagar', 'JP Nagar', 'Banashankari', 'BTM Layout', 'Hebbal', 'Yelahanka', 'Sarjapur Road',
+    'Bellandur', 'Mahadevapura', 'KR Puram', 'Horamavu', 'Ramamurthy Nagar', 'Kalyan Nagar',
+    'Hennur', 'Thanisandra', 'RT Nagar', 'Rajajinagar', 'Malleshwaram', 'Basavanagudi',
+    'Vijayanagar', 'Nagarbhavi', 'Kengeri', 'RR Nagar', 'Yeshwanthpur', 'Peenya', 'Magadi Road',
+    'Mysore Road', 'Kanakapura Road', 'Bannerghatta Road', 'Devanahalli', 'Domlur', 'Ulsoor',
+    'Cox Town', 'Frazer Town', 'Richmond Town', 'Sadashivanagar'
+  ];
+
+  const mysoreLocations = [
+    'Vijayanagar', 'Kuvempunagar', 'Saraswathipuram', 'Gokulam', 'Jayalakshmipuram', 'Yadavagiri',
+    'Lakshmipuram', 'Siddartha Layout', 'Hebbal', 'Bogadi', 'Hootagalli', 'Metagalli', 'Alanahalli',
+    'Ramakrishnanagar', 'Jayanagar', 'Chamundi Hill', 'Nazarbad', 'Bannimantap', 'Nanjangud Road',
+    'Hinkal', 'Srirampura', 'Udayagiri', 'Vijayanagar 2nd Stage', 'Vijayanagar 4th Stage',
+    'Dattagalli', 'Belavadi', 'Koorgalli', 'Kadakola', 'Yelwal', 'Lalithadripura'
   ];
 
   return (
@@ -63,10 +93,19 @@ export const Footer: React.FC = () => {
           </p>
           <div className="flex items-center gap-3">
             <a 
-              href="https://www.instagram.com/aniruddaya_enterprises?igsh=MTM3dHhhbXVveHhxdg==" 
+              href="https://www.facebook.com/share/19F38wWFD6/" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="w-9 h-9 rounded-xl bg-brand-secondary/50 border border-slate-100 text-slate-800/80 hover:text-slate-800 flex items-center justify-center transition-all duration-200 hover:border-slate-300"
+              className="w-9 h-9 rounded-xl bg-brand-secondary/50 border border-slate-100 text-slate-800/80 hover:text-brand-primary flex items-center justify-center transition-all duration-200 hover:border-brand-primary"
+              title="Visit our Facebook Page"
+            >
+              <FacebookIcon className="w-4 h-4" />
+            </a>
+            <a 
+              href="https://www.instagram.com/aniruddayaenterprises?igsh=bHdjMjE0d2l6Z2t1" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="w-9 h-9 rounded-xl bg-brand-secondary/50 border border-slate-100 text-slate-800/80 hover:text-brand-primary flex items-center justify-center transition-all duration-200 hover:border-brand-primary"
               title="Follow Aniruddaya Enterprises on Instagram"
             >
               <InstagramIcon className="w-4 h-4" />
@@ -115,14 +154,32 @@ export const Footer: React.FC = () => {
         {/* Column 4: Coverage & Verification */}
         <div className="flex flex-col gap-4">
           <h4 className="font-display font-bold text-slate-800 tracking-wider text-sm uppercase">Regional Presence</h4>
-          <ul className="flex flex-col gap-2.5 text-sm text-slate-800/90">
-            {coverageAreas.map((area) => (
-              <li key={area} className="flex items-center gap-2">
-                <MapPin className="w-3.5 h-3.5 text-brand-accent shrink-0" />
-                <span>{area}</span>
-              </li>
-            ))}
-          </ul>
+          <div className="flex flex-col gap-3">
+            <details className="group">
+              <summary className="flex items-center justify-between cursor-pointer list-none font-medium text-slate-800/90 text-sm hover:text-white transition-colors py-1">
+                <div className="flex items-center gap-2">
+                  <MapPin className="w-3.5 h-3.5 text-slate-800 shrink-0" />
+                  <span>Bangalore Locations</span>
+                </div>
+                <span className="text-xs transition-transform group-open:rotate-180">▼</span>
+              </summary>
+              <ul className="mt-2 ml-5 flex flex-col gap-1.5 text-xs text-slate-800/80 border-l-2 border-slate-800/20 pl-3 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
+                {bangaloreLocations.map(loc => <li key={loc} className="hover:text-white hover:font-medium transition-all duration-150 cursor-pointer">{loc}</li>)}
+              </ul>
+            </details>
+            <details className="group">
+              <summary className="flex items-center justify-between cursor-pointer list-none font-medium text-slate-800/90 text-sm hover:text-white transition-colors py-1">
+                <div className="flex items-center gap-2">
+                  <MapPin className="w-3.5 h-3.5 text-slate-800 shrink-0" />
+                  <span>Mysuru Locations</span>
+                </div>
+                <span className="text-xs transition-transform group-open:rotate-180">▼</span>
+              </summary>
+              <ul className="mt-2 ml-5 flex flex-col gap-1.5 text-xs text-slate-800/80 border-l-2 border-slate-800/20 pl-3 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
+                {mysoreLocations.map(loc => <li key={loc} className="hover:text-white hover:font-medium transition-all duration-150 cursor-pointer">{loc}</li>)}
+              </ul>
+            </details>
+          </div>
           
           <div className="bg-brand-secondary/40 border border-slate-100 rounded-2xl p-4 mt-2 flex flex-col gap-2.5">
             <div>
