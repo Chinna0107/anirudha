@@ -39,11 +39,11 @@ export const Contact: React.FC = () => {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(142,152,165,0.06),transparent_70%)]"></div>
         <div className="max-w-4xl mx-auto flex flex-col gap-3 relative z-10 text-center">
           <span className="text-xs uppercase tracking-widest text-brand-accent font-extrabold font-display">Schedule Free Inspection</span>
-          <TextReveal 
-            text="Connect With Rigging Experts" 
-            className="font-display font-extrabold text-3xl sm:text-5xl text-white tracking-tight leading-tight justify-center" 
+          <TextReveal
+            text="Connect With Rigging Experts"
+            className="font-display font-extrabold text-3xl sm:text-5xl text-white tracking-tight leading-tight justify-center"
           />
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
@@ -57,7 +57,7 @@ export const Contact: React.FC = () => {
       {/* Main Split Grid */}
       <section className="py-20 px-6 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12">
         {/* Contact info details left */}
-        <motion.div 
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
@@ -114,10 +114,10 @@ export const Contact: React.FC = () => {
               </MagneticButton>
               <div className="flex flex-col">
                 <span className="text-xs text-slate-500 font-display font-bold uppercase tracking-wider">Follow Instagram</span>
-                <a 
-                  href="https://www.instagram.com/aniruddaya_enterprises?igsh=MTM3dHhhbXVveHhxdg==" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href="https://www.instagram.com/aniruddaya_enterprises?igsh=MTM3dHhhbXVveHhxdg=="
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-base font-bold text-brand-primary hover:underline font-sans"
                 >
                   @aniruddaya_enterprises
@@ -161,7 +161,7 @@ export const Contact: React.FC = () => {
         </motion.div>
 
         {/* Quote Form Estimator Right */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: 100 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-50px" }}

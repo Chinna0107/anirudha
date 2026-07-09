@@ -104,155 +104,161 @@ export const Home: React.FC = () => {
     <div className="flex flex-col w-full overflow-hidden">
       
       {/* 1. Hero Section (Ultra-Premium Architectural Theme) */}
-      <section className="relative flex flex-col md:flex-row md:items-center md:justify-center md:min-h-screen text-white pt-20 pb-10 md:py-28 px-6 md:px-0 overflow-hidden group bg-brand-darker md:bg-transparent">
+      <section className="relative flex items-center justify-center min-h-screen pt-28 pb-16 md:py-20 px-6 overflow-hidden bg-brand-darker">
         
         {/* Animated Gradient / Mesh Overlay */}
         <div className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_50%_50%,rgba(212,175,55,0.08),transparent_70%)] animate-[pulse_4s_ease-in-out_infinite] pointer-events-none" />
-        <div className="hidden md:block absolute inset-0 z-10 bg-gradient-to-br from-brand-darker/95 via-brand-dark/80 to-transparent pointer-events-none" />
 
-        {/* Content Box with Parallax */}
-        <motion.div 
-          style={{ y: heroY, opacity: heroOpacity }}
-          className="max-w-5xl mx-auto flex flex-col items-center text-center gap-8 relative z-20"
-        >
+        <div className="max-w-7xl w-full mx-auto flex flex-col md:flex-row items-center justify-between gap-10 md:gap-16 relative z-20">
+          
+          {/* Content Box with Parallax - Order 2 on Mobile, 1 on Desktop */}
           <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs md:text-sm font-semibold font-sans tracking-wide text-brand-accent shadow-xl"
+            style={{ y: heroY, opacity: heroOpacity }}
+            className="order-2 md:order-1 flex flex-col items-start text-left gap-6 md:gap-8 relative z-20 w-full md:w-1/2"
           >
-            <Star className="w-4 h-4 fill-brand-accent text-brand-accent" />
-            <span>South India's Most Trusted Safety Installer - <strong>Aniruddaya Enterprises</strong></span>
-          </motion.div>
-
-          {/* Premium SEO H1 Heading */}
-          <div className="flex flex-col gap-6 max-w-4xl px-4 md:px-0 overflow-hidden">
-            <motion.h1 
-              initial={{ opacity: 0, y: 40 }}
+            <motion.div 
+              initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4, type: 'spring' }}
-              className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white tracking-tight leading-tight min-h-[3em] sm:min-h-[2.5em] md:min-h-[2em] drop-shadow-xl"
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs md:text-sm font-semibold font-sans tracking-wide text-brand-accent shadow-xl"
             >
-              South India's Premier <br className="hidden sm:block" />
-              <span className="text-brand-accent inline-block drop-shadow-lg">
-                <Typewriter
-                  options={{
-                    strings: ['Balcony Safety Nets', 'Invisible Grills', 'Pigeon Exclusions', 'Sports Nets'],
-                    autoStart: true,
-                    loop: true,
-                    delay: 50,
-                    deleteSpeed: 30,
-                  }}
-                />
-              </span>
-            </motion.h1>
-            <motion.p 
+              <Star className="w-4 h-4 fill-brand-accent text-brand-accent" />
+              <span>South India's Most Trusted Safety Installer</span>
+            </motion.div>
+
+            {/* Premium SEO H1 Heading */}
+            <div className="flex flex-col gap-4 max-w-2xl px-0 overflow-hidden">
+              <motion.h1 
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4, type: 'spring' }}
+                className="font-display font-extrabold text-4xl sm:text-5xl md:text-5xl lg:text-6xl text-white tracking-tight leading-tight min-h-[3em] sm:min-h-[2.5em] md:min-h-[2em] drop-shadow-xl"
+              >
+                South India's Premier <br className="hidden sm:block" />
+                <span className="text-brand-accent inline-block drop-shadow-lg">
+                  <Typewriter
+                    options={{
+                      strings: ['Balcony Safety Nets', 'Invisible Grills', 'Pigeon Exclusions', 'Sports Nets'],
+                      autoStart: true,
+                      loop: true,
+                      delay: 50,
+                      deleteSpeed: 30,
+                    }}
+                  />
+                </span>
+              </motion.h1>
+              <motion.p 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1, delay: 0.8 }}
+                className="font-sans text-slate-300 text-sm sm:text-base md:text-lg max-w-xl leading-relaxed drop-shadow-md"
+              >
+                Architectural-grade child fall prevention netting, pigeon exclusions, and marine SS-316 invisible grills custom-tensioned for high-rise residences.
+              </motion.p>
+            </div>
+            
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1 }}
+              className="flex flex-col sm:flex-row items-stretch sm:items-center justify-start gap-4 w-full sm:w-auto mt-2 md:mt-4"
+            >
+              <MagneticButton>
+                <a href="#services" onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
+                }} className="w-full sm:w-auto block">
+                  <Button variant="primary" size="lg" className="w-full sm:w-auto font-bold py-4 md:py-6 px-8 text-sm md:text-base group">
+                    View Services
+                    <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
+                  </Button>
+                </a>
+              </MagneticButton>
+              <MagneticButton>
+                <Link to="/contact" className="w-full sm:w-auto block">
+                  <Button variant="outline" size="lg" className="w-full sm:w-auto border-white/30 text-white hover:bg-white/10 backdrop-blur-sm text-sm md:text-base py-4 md:py-6 px-8 shadow-xl">
+                    <PhoneCall className="w-5 h-5 mr-2 text-brand-accent" />
+                    Contact Us
+                  </Button>
+                </Link>
+              </MagneticButton>
+            </motion.div>
+
+            {/* Quick Metrics */}
+            <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 0.8 }}
-              className="font-sans text-slate-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed drop-shadow-md"
+              transition={{ duration: 1, delay: 1.2 }}
+              className="grid grid-cols-3 gap-4 md:gap-8 pt-6 border-t border-white/20 mt-4 md:mt-6 w-full text-left"
             >
-              Architectural-grade child fall prevention netting, pigeon exclusions, and marine SS-316 invisible grills custom-tensioned for high-rise residences.
-            </motion.p>
-          </div>
-          
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1 }}
-            className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 w-full sm:w-auto mt-2 md:mt-4"
-          >
-            <MagneticButton>
-              <Link to="/contact" className="w-full sm:w-auto block">
-                <Button variant="primary" size="lg" className="w-full sm:w-auto font-bold py-4 md:py-6 px-8 text-sm md:text-base group">
-                  Book Free Site Visit
-                  <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
-                </Button>
-              </Link>
-            </MagneticButton>
-            <MagneticButton>
-              <a href="tel:9550779976" className="w-full sm:w-auto block">
-                <Button variant="outline" size="lg" className="w-full sm:w-auto border-white/30 text-white hover:bg-white/10 backdrop-blur-sm text-sm md:text-base py-4 md:py-6 px-8 shadow-xl">
-                  <PhoneCall className="w-5 h-5 mr-2 text-brand-accent" />
-                  +91 95507 79976
-                </Button>
-              </a>
-            </MagneticButton>
+              <div className="flex flex-col items-start">
+                <span className="font-display font-extrabold text-2xl md:text-3xl text-white drop-shadow-lg">
+                  <CountUp end={12000} duration={3} separator="," enableScrollSpy scrollSpyOnce />+
+                </span>
+                <span className="text-[10px] md:text-xs text-brand-accent uppercase tracking-widest font-bold mt-1 md:mt-2">Homes Protected</span>
+              </div>
+              <div className="flex flex-col items-start">
+                <span className="font-display font-extrabold text-2xl md:text-3xl text-white drop-shadow-lg">
+                  <CountUp end={5} duration={3} enableScrollSpy scrollSpyOnce /> Years
+                </span>
+                <span className="text-[10px] md:text-xs text-brand-accent uppercase tracking-widest font-bold mt-1 md:mt-2">Full Warranty</span>
+              </div>
+              <div className="flex flex-col items-start">
+                <span className="font-display font-extrabold text-2xl md:text-3xl text-white drop-shadow-lg">Same-Day</span>
+                <span className="text-[10px] md:text-xs text-brand-accent uppercase tracking-widest font-bold mt-1 md:mt-2">Fast Execution</span>
+              </div>
+            </motion.div>
           </motion.div>
 
-          {/* Quick Metrics */}
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1.2 }}
-            className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-16 border-t border-white/20 pt-8 md:pt-10 mt-4 md:mt-6 w-full text-center"
-          >
-            <div className="flex flex-col items-center">
-              <span className="font-display font-extrabold text-2xl md:text-3xl lg:text-4xl text-white drop-shadow-lg">
-                <CountUp end={12000} duration={3} separator="," enableScrollSpy scrollSpyOnce />+
-              </span>
-              <span className="text-[10px] md:text-sm text-brand-accent uppercase tracking-widest font-bold mt-1 md:mt-2">Homes Protected</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <span className="font-display font-extrabold text-2xl md:text-3xl lg:text-4xl text-white drop-shadow-lg">
-                <CountUp end={5} duration={3} enableScrollSpy scrollSpyOnce /> Years
-              </span>
-              <span className="text-[10px] md:text-sm text-brand-accent uppercase tracking-widest font-bold mt-1 md:mt-2">Full Warranty</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <span className="font-display font-extrabold text-2xl md:text-3xl lg:text-4xl text-white drop-shadow-lg">Same-Day</span>
-              <span className="text-[10px] md:text-sm text-brand-accent uppercase tracking-widest font-bold mt-1 md:mt-2">Fast Execution</span>
-            </div>
-          </motion.div>
-        </motion.div>
-
-        {/* Slideshow Box (Ken Burns Effect) */}
-        <div className="relative md:absolute md:inset-0 z-0 h-64 sm:h-96 md:h-full w-full max-w-3xl md:max-w-none mx-auto mt-10 md:mt-0 rounded-3xl md:rounded-none overflow-hidden border border-slate-100 md:border-none shadow-2xl md:shadow-none">
-          {slideshowImages.map((slide, idx) => (
-            <div 
-              key={idx}
-              className={`absolute inset-0 transition-opacity duration-[1500ms] ease-in-out ${idx === currentSlide ? 'opacity-100 z-0' : 'opacity-0 -z-10'}`}
-            >
-              <img 
-                src={slide.src} 
-                alt={slide.title} 
-                className="w-full h-full object-cover origin-center"
-                style={
-                  idx === currentSlide 
-                    ? { transform: 'scale(1.1) translate(1%, 1%)', transition: 'transform 8000ms ease-out' } 
-                    : { transform: 'scale(1)', transition: 'transform 0s' }
-                }
-              />
-            </div>
-          ))}
-
-          {/* Manual Arrows Navigation */}
-          <button 
-            onClick={prevSlide}
-            className="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 z-30 w-8 h-8 md:w-14 md:h-14 rounded-full bg-black/40 hover:bg-brand-primary/80 text-white flex items-center justify-center border border-slate-200 transition-all opacity-0 group-hover:opacity-100 cursor-pointer"
-            aria-label="Previous Slide"
-          >
-            <ChevronLeft className="w-5 h-5 md:w-8 md:h-8" />
-          </button>
-          <button 
-            onClick={nextSlide}
-            className="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 z-30 w-8 h-8 md:w-14 md:h-14 rounded-full bg-black/40 hover:bg-brand-primary/80 text-white flex items-center justify-center border border-slate-200 transition-all opacity-0 group-hover:opacity-100 cursor-pointer"
-            aria-label="Next Slide"
-          >
-            <ChevronRight className="w-5 h-5 md:w-8 md:h-8" />
-          </button>
-
-          {/* Interactive Progress dots */}
-          <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 z-30 flex gap-2 md:gap-3">
-            {slideshowImages.map((_, idx) => (
-              <button
+          {/* Slideshow Box (Ken Burns Effect) - Order 1 on Mobile, 2 on Desktop */}
+          <div className="order-1 md:order-2 relative h-[45vh] sm:h-[55vh] md:h-[70vh] w-full md:w-1/2 rounded-3xl overflow-hidden shadow-2xl border border-white/10 group flex-shrink-0">
+            {slideshowImages.map((slide, idx) => (
+              <div 
                 key={idx}
-                onClick={() => setCurrentSlide(idx)}
-                className={`h-1.5 md:h-2 rounded-full transition-all duration-300 cursor-pointer ${idx === currentSlide ? 'w-6 md:w-8 bg-brand-accent shadow-[0_0_10px_rgba(234,179,8,0.5)]' : 'w-1.5 md:w-2 bg-white/40 hover:bg-white/80'}`}
-                aria-label={`Jump to slide ${idx + 1}`}
-              />
+                className={`absolute inset-0 transition-opacity duration-[1500ms] ease-in-out ${idx === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+              >
+                <img 
+                  src={slide.src} 
+                  alt={slide.title} 
+                  className="w-full h-full object-cover origin-center"
+                  style={
+                    idx === currentSlide 
+                      ? { transform: 'scale(1.1) translate(1%, 1%)', transition: 'transform 8000ms ease-out' } 
+                      : { transform: 'scale(1)', transition: 'transform 0s' }
+                  }
+                />
+              </div>
             ))}
+
+            {/* Manual Arrows Navigation */}
+            <button 
+              onClick={prevSlide}
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/40 hover:bg-brand-primary text-white flex items-center justify-center border border-white/20 backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100 cursor-pointer"
+              aria-label="Previous Slide"
+            >
+              <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
+            </button>
+            <button 
+              onClick={nextSlide}
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/40 hover:bg-brand-primary text-white flex items-center justify-center border border-white/20 backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100 cursor-pointer"
+              aria-label="Next Slide"
+            >
+              <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
+            </button>
+
+            {/* Interactive Progress dots */}
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex gap-2">
+              {slideshowImages.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setCurrentSlide(idx)}
+                  className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${idx === currentSlide ? 'w-8 bg-brand-accent shadow-[0_0_10px_rgba(234,179,8,0.5)]' : 'w-2 bg-white/40 hover:bg-white/80'}`}
+                  aria-label={`Jump to slide ${idx + 1}`}
+                />
+              ))}
+            </div>
           </div>
+
         </div>
       </section>
 
