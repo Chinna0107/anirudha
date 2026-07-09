@@ -290,8 +290,8 @@ export const Home: React.FC = () => {
                 <p className="text-slate-500 text-sm mt-2">Keep balconies clean and free from bird roosting.</p>
               </div>
               <BeforeAfterSlider 
-                beforeImage="/balcony.jpeg" 
-                afterImage="/image 5.jpg"
+                beforeImage="/pigeon_base.png" 
+                afterImage="/pigeon_nets_new.png"
                 beforeLabel="Before (Open & Unprotected)"
                 afterLabel="After (Pigeon Nets)"
               />
@@ -311,8 +311,8 @@ export const Home: React.FC = () => {
               </div>
               <Tilt tiltMaxAngleX={10} tiltMaxAngleY={10} perspective={1000} transitionSpeed={1000} scale={1.02}>
                 <BeforeAfterSlider 
-                  beforeImage="/balcony.jpeg" 
-                  afterImage="/image 1.jpg"
+                  beforeImage="/balcony_base.png" 
+                  afterImage="/safety_nets.png"
                   beforeLabel="Before (Open Ledge)"
                   afterLabel="After (Safety Nets)"
                 />
