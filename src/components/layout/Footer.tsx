@@ -197,7 +197,7 @@ export const Footer: React.FC = () => {
             <div>
               <span className="text-[10px] uppercase font-bold text-slate-800/60 tracking-wider block mb-1">Corporate HQ</span>
               <span className="text-xs text-slate-800/80 leading-relaxed font-sans block">
-                12, 1st Cross, HMT Layout, Vidyaranyapura, Bengaluru, Karnataka 560097
+                #6, 10<sup>th</sup> Cross , Muthyala Nagara, J.P.Park Back Gate, Bengaluru - 560054
               </span>
             </div>
             <div className="border-t border-slate-100 pt-2 flex flex-col gap-0.5 text-xs">
@@ -219,7 +219,8 @@ export const Footer: React.FC = () => {
         </div>
         <div className="flex items-center gap-6">
           <Link to="/about" className="hover:underline">About Company</Link>
-          <Link to="/faq" className="hover:underline">FAQs</Link>
+          <Link to="/gallery" className="hover:underline">Gallery</Link>
+          <Link to="/faq" className="hover:underline">Safety FAQs</Link>
           <Link to="/blog" className="hover:underline">Sitemap & Guides</Link>
         </div>
       </div>

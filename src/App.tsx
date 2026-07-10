@@ -10,9 +10,9 @@ import { Faq } from './pages/Faq';
 import { BlogHub } from './pages/BlogHub';
 import { BlogPost } from './pages/BlogPost';
 import { Contact } from './pages/Contact';
+import { Gallery } from './pages/Gallery';
 import { ServiceDetail } from './pages/ServiceDetail';
 import { LocationDetail } from './pages/LocationDetail';
-import { IntroAnimation } from './components/ui/IntroAnimation';
 import { ScrollProgress } from './components/ui/ScrollProgress';
 import { PageTransition } from './components/ui/PageTransition';
 import { AnimatePresence } from 'framer-motion';
@@ -29,17 +29,13 @@ const ScrollToTop: React.FC = () => {
 };
 
 const App: React.FC = () => {
-  const [showIntro, setShowIntro] = React.useState(true);
   const location = useLocation();
 
   return (
     <>
       <ScrollProgress />
       <ScrollToTop />
-      <AnimatePresence mode="wait">
-        {showIntro && <IntroAnimation onComplete={() => setShowIntro(false)} />}
-      </AnimatePresence>
-      <div className={`flex flex-col min-h-screen bg-brand-light font-sans text-brand-primary antialiased ${showIntro ? 'h-screen overflow-hidden' : ''}`}>
+      <div className="flex flex-col min-h-screen bg-brand-light font-sans text-brand-primary antialiased">
         {/* Sticky Header Navigation */}
         <Header />
 
@@ -55,6 +51,7 @@ const App: React.FC = () => {
                 <Route path="/blog" element={<BlogHub />} />
                 <Route path="/blog/:slug" element={<BlogPost />} />
                 <Route path="/contact" element={<Contact />} />
+                <Route path="/gallery" element={<Gallery />} />
                 {/* Dynamic routing for services */}
                 <Route path="/services/:slug" element={<ServiceDetail />} />
                 {/* Dynamic routing for locations */}

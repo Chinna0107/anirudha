@@ -293,5 +293,53 @@ export const servicesData: ServiceItem[] = [
       { question: 'Will the color fade or tear in strong summer winds?', answer: 'No, our nets are UV-stabilized and feature lockstitch knitting that prevents fraying and structural tears under direct hot summer sunlight.' }
     ],
     image: '/shade.png'
+  },
+  // 17. Open Area Windows Invisible Grill
+  {
+    slug: 'open-area-windows-invisible-grill',
+    title: 'Open Area Windows Invisible Grill',
+    category: 'invisible-grill',
+    categoryLabel: 'Invisible Grill Systems',
+    tagline: 'Unobstructed views and uncompromising safety for large open window areas.',
+    description: 'Maximize the aesthetic appeal and ventilation of your large open window areas without compromising on safety. Our Open Area Windows Invisible Grills utilize high-tension marine-grade stainless steel cables to provide a robust barrier against falls, while remaining practically invisible to the naked eye. Perfect for modern apartments seeking a clean, uninterrupted skyline view.',
+    materialSpec: '316 Marine Grade Stainless Steel Wire Core wrapped in Dupont Teflon coating, anodized track anchors.',
+    priceIndicator: 'Starting from ₹120 / sq.ft. (Including installation)',
+    features: ['100% Unobstructed Views', 'High-Tensile Strength (Up to 400+ kg load)', 'Rust and Corrosion Resistant', 'Seamless Architectural Integration'],
+    faqs: [
+      { question: 'Can these be installed on any type of open window?', answer: 'Yes, our custom track systems allow installation on almost all architectural window layouts, including curved and extra-wide openings.' }
+    ],
+    image: '/open_area_grill.jpeg'
+  },
+  // 18. Kitchen Windows Invisible Grill
+  {
+    slug: 'kitchen-windows-invisible-grill',
+    title: 'Kitchen Windows Invisible Grill',
+    category: 'invisible-grill',
+    categoryLabel: 'Invisible Grill Systems',
+    tagline: 'Maintain a clean, bright, and hygienic kitchen environment with zero rust.',
+    description: 'Kitchens require high ventilation and natural light, but traditional iron grills often rust and accumulate sticky grease. Our Kitchen Windows Invisible Grills are fabricated with Teflon-coated marine-grade stainless steel, ensuring zero rust even in highly humid, smoke-prone kitchen environments. They are incredibly easy to clean and keep your kitchen looking modern and bright.',
+    materialSpec: 'Teflon-coated 316 Marine Grade SS Core, grease-repellent and anti-rust.',
+    priceIndicator: 'Starting from ₹120 / sq.ft. (Including installation)',
+    features: ['Zero Rust in High-Humidity Areas', 'Grease and Smoke Repellent Coating', 'Easy to Wipe and Clean', 'Maintains Maximum Kitchen Brightness'],
+    faqs: [
+      { question: 'Will the heat from the kitchen affect the cables?', answer: 'No, the marine-grade steel and Teflon coating are highly heat-resistant and perfectly safe for use near kitchen stoves and exhaust areas.' }
+    ],
+    image: '/kitchen_grill.jpeg'
+  },
+  // 19. Utility Area Invisible Grill
+  {
+    slug: 'utility-area-invisible-grill',
+    title: 'Utility Area Invisible Grill',
+    category: 'invisible-grill',
+    categoryLabel: 'Invisible Grill Systems',
+    tagline: 'Secure your utility and laundry spaces with heavy-duty invisible cables.',
+    description: 'Utility areas and laundry balconies are often exposed and vulnerable. Our Utility Area Invisible Grills provide heavy-duty security and fall protection while allowing maximum air circulation for drying clothes. Unlike bulky metal grills, they save space and do not interfere with cloth drying hangers or washing machine setups.',
+    materialSpec: '316 Marine Grade Stainless Steel Core (2.5mm - 3.2mm diameter), heavy-duty expander anchors.',
+    priceIndicator: 'Starting from ₹115 / sq.ft. (Including installation)',
+    features: ['High-Strength Security for Utility Rooms', 'Maximum Airflow for Laundry Drying', 'Space-Saving Minimalist Design', 'Durable against heavy monsoon rains'],
+    faqs: [
+      { question: 'Can I install a ceiling cloth hanger along with the invisible grill?', answer: 'Absolutely! Our invisible grills take up zero internal space, leaving your ceiling and walls completely free for cloth hangers and storage units.' }
+    ],
+    image: '/utility_grill.jpeg'
   }
 ];
