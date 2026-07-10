@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ShieldCheck, MapPin, Award, CheckCircle } from 'lucide-react';
 import { servicesData } from '../../data/servicesData';
 
+
 const InstagramIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -36,6 +37,24 @@ const FacebookIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
     {...props}
   >
     <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3.81l.39-4h-4V7a1 1 0 0 1 1-1h3z" />
+  </svg>
+);
+
+const YoutubeIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z" />
+    <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" />
   </svg>
 );
 
@@ -109,6 +128,15 @@ export const Footer: React.FC = () => {
               title="Follow Aniruddaya Enterprises on Instagram"
             >
               <InstagramIcon className="w-4 h-4" />
+            </a>
+            <a 
+              href="https://youtube.com/@aniruddayaenterprises?si=A-OvDYlC38vU8AZ_" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="w-9 h-9 rounded-xl bg-brand-secondary/50 border border-slate-100 text-slate-800/80 hover:text-brand-primary flex items-center justify-center transition-all duration-200 hover:border-brand-primary"
+              title="Subscribe to Aniruddaya Enterprises on YouTube"
+            >
+              <YoutubeIcon className="w-4 h-4" />
             </a>
           </div>
           <div className="flex flex-col gap-2 mt-2">
