@@ -22,9 +22,9 @@ type CategoryType = 'all' | 'bird-safety' | 'invisible-grill' | 'sports-industri
 
 export const Home: React.FC = () => {
   useSEO({
-    title: 'Pigeon Nets, Balcony Safety Nets & Invisible Grills',
-    description: 'South India\'s most trusted home safety provider. Professional balcony safety nets, marine-grade stainless steel invisible grills, pigeon spikes, child play safeguards, and sports netting in Bangalore. Request a free site inspection.',
-    keywords: 'Balcony Safety Nets, Invisible Grills, Pigeon Safety Nets, Kids Safety Nets, Bird Spikes, Cricket Practice Nets, Sports Nets Installation, Aniruddaya Enterprises'
+    title: 'Aniruddaya Enterprises | Balcony Safety Nets & Invisible Grills',
+    description: 'Aniruddaya Enterprises is South India\'s most trusted home safety provider. Get professional balcony safety nets, marine-grade stainless steel invisible grills, pigeon spikes, child play safeguards, and sports netting in Bangalore.',
+    keywords: 'Aniruddaya Enterprises Balcony Safety Nets, Balcony Safety Nets, Invisible Grills, Pigeon Safety Nets, Kids Safety Nets, Bird Spikes, Cricket Practice Nets, Sports Nets Installation, Aniruddaya Enterprises'
   });
   const [activeCategory, setActiveCategory] = useState<CategoryType>('all');
   const [searchText, setSearchText] = useState('');
@@ -123,7 +123,7 @@ export const Home: React.FC = () => {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs md:text-sm font-semibold font-sans tracking-wide text-brand-accent shadow-xl"
             >
               <Star className="w-4 h-4 fill-brand-accent text-brand-accent" />
-              <span>South India's Most Trusted Safety Installer</span>
+              <span>Aniruddaya Enterprises - South India's Most Trusted Safety Installer</span>
             </motion.div>
 
             {/* Premium SEO H1 Heading */}
@@ -134,7 +134,8 @@ export const Home: React.FC = () => {
                 transition={{ duration: 0.8, delay: 0.4, type: 'spring' }}
                 className="font-display font-extrabold text-4xl sm:text-5xl md:text-5xl lg:text-6xl text-white tracking-tight leading-tight min-h-[3em] sm:min-h-[2.5em] md:min-h-[2em] drop-shadow-xl"
               >
-                South India's Premier <br className="hidden sm:block" />
+                Aniruddaya Enterprises <br className="hidden sm:block" />
+                <span className="text-3xl sm:text-4xl text-white/90 block mt-2 mb-1">Premium </span>
                 <span className="text-brand-accent inline-block drop-shadow-lg">
                   <Typewriter
                     options={{

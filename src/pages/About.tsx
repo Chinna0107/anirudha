@@ -10,9 +10,9 @@ import Tilt from 'react-parallax-tilt';
 
 export const About: React.FC = () => {
   useSEO({
-    title: 'About Our Company | Certified Home Safety Experts',
-    description: 'Learn about Aniruddaya Enterprises, South India\'s leading professional installer of high-rise safety nets, child-safety balcony barriers, anti-pigeon netting, and rustproof invisible grills.',
-    keywords: 'About Aniruddaya Enterprises, Professional Netting Installers, ISO Certified Safety Netting, Balcony Net Experts'
+    title: 'Aniruddaya Enterprises | Balcony Safety Nets Experts',
+    description: 'Learn about Aniruddaya Enterprises, South India\'s leading professional installer of high-rise balcony safety nets, child-safety balcony barriers, anti-pigeon netting, and rustproof invisible grills.',
+    keywords: 'Aniruddaya Enterprises Balcony Safety Nets, About Aniruddaya Enterprises, Professional Netting Installers, ISO Certified Safety Netting, Balcony Net Experts'
   });
   return (
     <div className="flex flex-col w-full">

@@ -10,9 +10,9 @@ import Tilt from 'react-parallax-tilt';
 
 export const Services: React.FC = () => {
   useSEO({
-    title: 'Our Safety Netting & Invisible Grill Services',
-    description: 'Browse our complete suite of architectural safety installations: double-knotted pigeon nets, heavy-duty child safety guards, bird spikes, cricket practice boxes, and customized invisible grills.',
-    keywords: 'Balcony Safety Nets, Invisible Grills Catalog, Safety Nets Showcase, Bird Spikes Services'
+    title: 'Aniruddaya Enterprises | Balcony Safety Nets & Invisible Grills Services',
+    description: 'Browse Aniruddaya Enterprises complete suite of architectural safety installations: balcony safety nets, double-knotted pigeon nets, heavy-duty child safety guards, bird spikes, cricket practice boxes, and customized invisible grills in Bangalore.',
+    keywords: 'Aniruddaya Enterprises Balcony Safety Nets, Balcony Safety Nets, Invisible Grills Catalog, Safety Nets Showcase, Bird Spikes Services'
   });
   const [activeTab, setActiveTab] = useState<'all' | 'bird-safety' | 'invisible-grill' | 'sports-industrial'>('all');
 

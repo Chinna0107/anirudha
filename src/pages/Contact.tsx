@@ -45,9 +45,9 @@ const FacebookIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
 
 export const Contact: React.FC = () => {
   useSEO({
-    title: 'Contact Us | Book Free Site Measurement & Demonstration',
-    description: 'Get in touch with the home safety experts at Aniruddaya Enterprises. Book a 100% free physical measurement audit and material inspection at your property in Bangalore or Mysore.',
-    keywords: 'Contact Aniruddaya Enterprises, Safety Nets Bangalore Contact, Safety Nets Mysore Contact, Book Netting Inspection'
+    title: 'Aniruddaya Enterprises | Contact Us For Balcony Safety Nets',
+    description: 'Get in touch with Aniruddaya Enterprises, the balcony safety nets experts. Book a 100% free physical measurement audit and material inspection at your property in Bangalore or Mysore.',
+    keywords: 'Aniruddaya Enterprises Balcony Safety Nets, Contact Aniruddaya Enterprises, Safety Nets Bangalore Contact, Safety Nets Mysore Contact, Book Netting Inspection'
   });
   return (
     <div className="flex flex-col w-full bg-slate-50/50">
